@@ -13,6 +13,12 @@
 		9FD8F24A1B6BD0E100B2DAF7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD8F2491B6BD0E100B2DAF7 /* Images.xcassets */; };
 		9FD8F24D1B6BD0E100B2DAF7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FD8F24B1B6BD0E100B2DAF7 /* LaunchScreen.xib */; };
 		9FD8F2591B6BD0E100B2DAF7 /* SLUGGRTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8F2581B6BD0E100B2DAF7 /* SLUGGRTests.swift */; };
+		9FD8F2631B6BF6AC00B2DAF7 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8F2621B6BF6AC00B2DAF7 /* UserTableViewCell.swift */; };
+		9FD8F2651B6BF8CF00B2DAF7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8F2641B6BF8CF00B2DAF7 /* LoginViewController.swift */; };
+		9FD8F26C1B6FB8E800B2DAF7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD8F26B1B6FB8E800B2DAF7 /* MapKit.framework */; };
+		9FD8F2711B6FCA8300B2DAF7 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8F2701B6FCA8300B2DAF7 /* Users.swift */; };
+		9FD8F2731B6FCE5700B2DAF7 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8F2721B6FCE5700B2DAF7 /* Groups.swift */; };
+		9FDAB5831B7156BE007F5327 /* RegisterLoginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAB5821B7156BE007F5327 /* RegisterLoginTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +42,12 @@
 		9FD8F2521B6BD0E100B2DAF7 /* SLUGGRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SLUGGRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD8F2571B6BD0E100B2DAF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FD8F2581B6BD0E100B2DAF7 /* SLUGGRTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLUGGRTests.swift; sourceTree = "<group>"; };
+		9FD8F2621B6BF6AC00B2DAF7 /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		9FD8F2641B6BF8CF00B2DAF7 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		9FD8F26B1B6FB8E800B2DAF7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9FD8F2701B6FCA8300B2DAF7 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		9FD8F2721B6FCE5700B2DAF7 /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
+		9FDAB5821B7156BE007F5327 /* RegisterLoginTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterLoginTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FD8F26C1B6FB8E800B2DAF7 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,9 +92,15 @@
 			children = (
 				9FD8F2421B6BD0E100B2DAF7 /* AppDelegate.swift */,
 				9FD8F2441B6BD0E100B2DAF7 /* ViewController.swift */,
+				9FD8F2641B6BF8CF00B2DAF7 /* LoginViewController.swift */,
+				9FDAB5821B7156BE007F5327 /* RegisterLoginTableViewCell.swift */,
+				9FD8F2621B6BF6AC00B2DAF7 /* UserTableViewCell.swift */,
+				9FD8F2721B6FCE5700B2DAF7 /* Groups.swift */,
+				9FD8F2701B6FCA8300B2DAF7 /* Users.swift */,
 				9FD8F2461B6BD0E100B2DAF7 /* Main.storyboard */,
 				9FD8F2491B6BD0E100B2DAF7 /* Images.xcassets */,
 				9FD8F24B1B6BD0E100B2DAF7 /* LaunchScreen.xib */,
+				9FD8F26D1B6FC77A00B2DAF7 /* Frameworks */,
 				9FD8F2401B6BD0E100B2DAF7 /* Supporting Files */,
 			);
 			path = SLUGGR;
@@ -110,6 +129,15 @@
 				9FD8F2571B6BD0E100B2DAF7 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9FD8F26D1B6FC77A00B2DAF7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9FD8F26B1B6FB8E800B2DAF7 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +189,11 @@
 				TargetAttributes = {
 					9FD8F23C1B6BD0E100B2DAF7 = {
 						CreatedOnToolsVersion = 6.3.2;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					9FD8F2511B6BD0E100B2DAF7 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -212,8 +245,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FD8F2651B6BF8CF00B2DAF7 /* LoginViewController.swift in Sources */,
 				9FD8F2451B6BD0E100B2DAF7 /* ViewController.swift in Sources */,
+				9FD8F2711B6FCA8300B2DAF7 /* Users.swift in Sources */,
+				9FDAB5831B7156BE007F5327 /* RegisterLoginTableViewCell.swift in Sources */,
+				9FD8F2631B6BF6AC00B2DAF7 /* UserTableViewCell.swift in Sources */,
 				9FD8F2431B6BD0E100B2DAF7 /* AppDelegate.swift in Sources */,
+				9FD8F2731B6FCE5700B2DAF7 /* Groups.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +447,7 @@
 				9FD8F25E1B6BD0E100B2DAF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9FD8F25F1B6BD0E100B2DAF7 /* Build configuration list for PBXNativeTarget "SLUGGRTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +456,7 @@
 				9FD8F2611B6BD0E100B2DAF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
