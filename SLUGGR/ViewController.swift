@@ -25,16 +25,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //MARK: - HTTP Request and basic auth
 
     func getDataFromAPI (){
-    
-    //creating the request
-    let url = NSURL(string: "http://sluggr-api.herokuapp.com/data")
-    let request = NSMutableURLRequest(URL: url!)
-    request.HTTPMethod = "GET"
-     let tempEmail = "a@b.com"
-    request.setValue("basic \(tempEmail)", forHTTPHeaderField: "email")
-    
-    //firing the request
-    //let urlConnection = NSURLConnection(request: request, delegate: self)
+        println("GDFA Start")
+
+        //creating the request
+        let url = NSURL(string: "http://sluggr-api.herokuapp.com/data")
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "GET"
+        let tempEmail = "a@b.com"
+        request.setValue("basic \(tempEmail)", forHTTPHeaderField: "email")
+        
+        //firing the request
+        //let urlConnection = NSURLConnection(request: request, delegate: self)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             println("error: \(error)")
             var err: NSError
@@ -60,12 +61,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 user.username = userDict.objectForKey("username") as? String
                 
                 self.userArray.append(user)
-               
+                
             }
             self.userTableView.reloadData()
             self.annotatingUsers()
             println("\(jsonResult)")
         })
+        println("GDFA End")
+
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        println("Prepare For Segue")
     }
     
     //MARK: - Location Monitoring
@@ -109,19 +116,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //MARK: - Map Methods
     
     func zoomToLocationWithLat(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        
+        println("ZTL Start")
         var zoomLocation = CLLocationCoordinate2D()
         zoomLocation.latitude = latitude
         zoomLocation.longitude = longitude
         var viewRegion :MKCoordinateRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 50000, 50000)
         var adjustedRegion :MKCoordinateRegion = mapView.regionThatFits(viewRegion)
         mapView.setRegion(adjustedRegion, animated: true)
-        
+        println("ZTL End")
     }
     
     //MARK: - Map Annotations
     
     func annotatingUsers() {
+        println("AU Start")
         var locs = [MKPointAnnotation]()
         for annot in mapView.annotations {
             if annot is MKPointAnnotation {
@@ -148,6 +156,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         println("Count: \(pins.count)")
         mapView.addAnnotations(pins)
+        println("AU End")
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
@@ -190,11 +199,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         getDataFromAPI()
+        println("VDL END")
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         prepareLocationMonitoring()
+        println("VWA END")
     }
     
     override func didReceiveMemoryWarning() {

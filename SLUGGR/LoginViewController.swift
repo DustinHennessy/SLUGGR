@@ -10,17 +10,24 @@ import UIKit
 
 class LoginViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var userArray = [Users]()
+//    var userArray = [Users]()
+
+    var fieldArray = ["Email", "Username", "Password"]
+    @IBOutlet var loginTableView :UITableView!
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+
+        return fieldArray.count
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell :RegisterLoginTableViewCell = tableView.dequeueReusableCellWithIdentifier("rlcell") as! RegisterLoginTableViewCell
-        let currentUser = userArray[indexPath.row]
+//        let currentUser = userArray[indexPath.row]
+        cell.dynamicLabel.text = fieldArray[indexPath.row]
         tableView.scrollEnabled = false
+        
+        
         return cell
         
     }
@@ -28,7 +35,7 @@ class LoginViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        println("VDL")
         // Do any additional setup after loading the view.
     }
 

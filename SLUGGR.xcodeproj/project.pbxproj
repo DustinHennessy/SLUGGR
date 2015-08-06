@@ -18,7 +18,13 @@
 		9FD8F26C1B6FB8E800B2DAF7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD8F26B1B6FB8E800B2DAF7 /* MapKit.framework */; };
 		9FD8F2711B6FCA8300B2DAF7 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8F2701B6FCA8300B2DAF7 /* Users.swift */; };
 		9FD8F2731B6FCE5700B2DAF7 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8F2721B6FCE5700B2DAF7 /* Groups.swift */; };
-		9FDAB5831B7156BE007F5327 /* RegisterLoginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAB5821B7156BE007F5327 /* RegisterLoginTableViewCell.swift */; };
+		9FDAB5871B72674C007F5327 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAB5861B72674C007F5327 /* EditProfileViewController.swift */; };
+		9FDAB5911B73AA0E007F5327 /* RegisterLoginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAB5901B73AA0E007F5327 /* RegisterLoginTableViewCell.swift */; };
+		9FDAB5931B73AA69007F5327 /* ProfileTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAB5921B73AA69007F5327 /* ProfileTextFieldTableViewCell.swift */; };
+		9FDAB5951B73AB48007F5327 /* ProfileTextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAB5941B73AB48007F5327 /* ProfileTextViewTableViewCell.swift */; };
+		9FDAB5971B73ABEF007F5327 /* ProfileSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAB5961B73ABEF007F5327 /* ProfileSwitchTableViewCell.swift */; };
+		9FDAB5991B73AC61007F5327 /* ProfileDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAB5981B73AC61007F5327 /* ProfileDateTableViewCell.swift */; };
+		9FDAB59B1B73ACA1007F5327 /* ProfileMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAB59A1B73ACA1007F5327 /* ProfileMapTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +53,13 @@
 		9FD8F26B1B6FB8E800B2DAF7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9FD8F2701B6FCA8300B2DAF7 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		9FD8F2721B6FCE5700B2DAF7 /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
-		9FDAB5821B7156BE007F5327 /* RegisterLoginTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterLoginTableViewCell.swift; sourceTree = "<group>"; };
+		9FDAB5861B72674C007F5327 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		9FDAB5901B73AA0E007F5327 /* RegisterLoginTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterLoginTableViewCell.swift; sourceTree = "<group>"; };
+		9FDAB5921B73AA69007F5327 /* ProfileTextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		9FDAB5941B73AB48007F5327 /* ProfileTextViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTextViewTableViewCell.swift; sourceTree = "<group>"; };
+		9FDAB5961B73ABEF007F5327 /* ProfileSwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSwitchTableViewCell.swift; sourceTree = "<group>"; };
+		9FDAB5981B73AC61007F5327 /* ProfileDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDateTableViewCell.swift; sourceTree = "<group>"; };
+		9FDAB59A1B73ACA1007F5327 /* ProfileMapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileMapTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,10 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				9FD8F2421B6BD0E100B2DAF7 /* AppDelegate.swift */,
-				9FD8F2441B6BD0E100B2DAF7 /* ViewController.swift */,
-				9FD8F2641B6BF8CF00B2DAF7 /* LoginViewController.swift */,
-				9FDAB5821B7156BE007F5327 /* RegisterLoginTableViewCell.swift */,
-				9FD8F2621B6BF6AC00B2DAF7 /* UserTableViewCell.swift */,
+				9FDAB5881B72675E007F5327 /* View Controllers */,
+				9FDAB5891B726771007F5327 /* Custom TableView Cells */,
 				9FD8F2721B6FCE5700B2DAF7 /* Groups.swift */,
 				9FD8F2701B6FCA8300B2DAF7 /* Users.swift */,
 				9FD8F2461B6BD0E100B2DAF7 /* Main.storyboard */,
@@ -138,6 +148,30 @@
 			);
 			name = Frameworks;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		9FDAB5881B72675E007F5327 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9FD8F2441B6BD0E100B2DAF7 /* ViewController.swift */,
+				9FD8F2641B6BF8CF00B2DAF7 /* LoginViewController.swift */,
+				9FDAB5861B72674C007F5327 /* EditProfileViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		9FDAB5891B726771007F5327 /* Custom TableView Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9FDAB5901B73AA0E007F5327 /* RegisterLoginTableViewCell.swift */,
+				9FDAB5921B73AA69007F5327 /* ProfileTextFieldTableViewCell.swift */,
+				9FDAB5941B73AB48007F5327 /* ProfileTextViewTableViewCell.swift */,
+				9FDAB5961B73ABEF007F5327 /* ProfileSwitchTableViewCell.swift */,
+				9FDAB5981B73AC61007F5327 /* ProfileDateTableViewCell.swift */,
+				9FDAB59A1B73ACA1007F5327 /* ProfileMapTableViewCell.swift */,
+				9FD8F2621B6BF6AC00B2DAF7 /* UserTableViewCell.swift */,
+			);
+			name = "Custom TableView Cells";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,13 +279,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FDAB5911B73AA0E007F5327 /* RegisterLoginTableViewCell.swift in Sources */,
+				9FDAB5951B73AB48007F5327 /* ProfileTextViewTableViewCell.swift in Sources */,
 				9FD8F2651B6BF8CF00B2DAF7 /* LoginViewController.swift in Sources */,
+				9FDAB5971B73ABEF007F5327 /* ProfileSwitchTableViewCell.swift in Sources */,
 				9FD8F2451B6BD0E100B2DAF7 /* ViewController.swift in Sources */,
+				9FDAB59B1B73ACA1007F5327 /* ProfileMapTableViewCell.swift in Sources */,
 				9FD8F2711B6FCA8300B2DAF7 /* Users.swift in Sources */,
-				9FDAB5831B7156BE007F5327 /* RegisterLoginTableViewCell.swift in Sources */,
 				9FD8F2631B6BF6AC00B2DAF7 /* UserTableViewCell.swift in Sources */,
 				9FD8F2431B6BD0E100B2DAF7 /* AppDelegate.swift in Sources */,
 				9FD8F2731B6FCE5700B2DAF7 /* Groups.swift in Sources */,
+				9FDAB5931B73AA69007F5327 /* ProfileTextFieldTableViewCell.swift in Sources */,
+				9FDAB5871B72674C007F5327 /* EditProfileViewController.swift in Sources */,
+				9FDAB5991B73AC61007F5327 /* ProfileDateTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

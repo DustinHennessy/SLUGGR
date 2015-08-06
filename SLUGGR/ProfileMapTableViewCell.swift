@@ -1,5 +1,5 @@
 //
-//  RegisterLoginTableViewCell.swift
+//  ProfileMapTableViewCell.swift
 //  SLUGGR
 //
 //  Created by Dustin Hennessy on 8/6/15.
@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import MapKit
 
-class RegisterLoginTableViewCell: UITableViewCell {
-
-    @IBOutlet var dynamicLabel :UILabel!
+class ProfileMapTableViewCell: UITableViewCell {
     
+    @IBOutlet var dynamicMCLabel :UILabel!
+    @IBOutlet var profileMapView :MKMapView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -1,5 +1,5 @@
 //
-//  RegisterLoginTableViewCell.swift
+//  ProfileTextFieldTableViewCell.swift
 //  SLUGGR
 //
 //  Created by Dustin Hennessy on 8/6/15.
@@ -8,9 +8,10 @@
 
 import UIKit
 
-class RegisterLoginTableViewCell: UITableViewCell {
+class ProfileTextFieldTableViewCell: UITableViewCell {
 
-    @IBOutlet var dynamicLabel :UILabel!
+    @IBOutlet var dynamicTFCLabel :UILabel!
+    @IBOutlet var dynamicProfileTextField :UITextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()

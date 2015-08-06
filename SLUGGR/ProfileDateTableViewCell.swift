@@ -1,5 +1,5 @@
 //
-//  RegisterLoginTableViewCell.swift
+//  ProfileDateTableViewCell.swift
 //  SLUGGR
 //
 //  Created by Dustin Hennessy on 8/6/15.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class RegisterLoginTableViewCell: UITableViewCell {
+class ProfileDateTableViewCell: UITableViewCell {
 
-    @IBOutlet var dynamicLabel :UILabel!
+    @IBOutlet var cellDatePicker :UIDatePicker!
     
     override func awakeFromNib() {
         super.awakeFromNib()

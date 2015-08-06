@@ -1,5 +1,5 @@
 //
-//  RegisterLoginTableViewCell.swift
+//  ProfileSwitchTableViewCell.swift
 //  SLUGGR
 //
 //  Created by Dustin Hennessy on 8/6/15.
@@ -8,9 +8,10 @@
 
 import UIKit
 
-class RegisterLoginTableViewCell: UITableViewCell {
+class ProfileSwitchTableViewCell: UITableViewCell {
 
-    @IBOutlet var dynamicLabel :UILabel!
+    @IBOutlet var dynamicSCLabel :UILabel!
+    @IBOutlet var cellSwitch :UISwitch!
     
     override func awakeFromNib() {
         super.awakeFromNib()
