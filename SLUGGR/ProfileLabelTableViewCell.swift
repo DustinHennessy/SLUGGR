@@ -1,16 +1,17 @@
 //
-//  RegisterLoginTableViewCell.swift
+//  ProfileLabelTableViewCell.swift
 //  SLUGGR
 //
-//  Created by Dustin Hennessy on 8/6/15.
+//  Created by Dustin Hennessy on 8/7/15.
 //  Copyright (c) 2015 DustinHennessy. All rights reserved.
 //
 
 import UIKit
 
-class RegisterLoginTableViewCell: UITableViewCell {
+class ProfileLabelTableViewCell: UITableViewCell {
 
-    @IBOutlet var dynamicLabel :UILabel!
+    @IBOutlet var dynamicLCLabel :UILabel!
+    @IBOutlet var dynamicLCDetailLabel :UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

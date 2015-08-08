@@ -12,7 +12,7 @@ class Users: NSObject {
    
     var userBio :String?
     var userPass :String!
-    var driverStatus :Bool!
+    var driverStatus :Bool?
     var userEmail :String!
     var userFirstName :String!
     var userLastName :String!

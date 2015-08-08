@@ -10,27 +10,110 @@ import UIKit
 
 class LoginViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-//    var userArray = [Users]()
 
-    var fieldArray = ["Email", "Username", "Password"]
+    var fieldArray = ["Email", "First Name", "Username", "Password"]
     @IBOutlet var loginTableView :UITableView!
+    var emailField :String!
+    var passwordField :String!
+    var usernameField :String!
+    var firstNameField :String!
+    @IBOutlet var registerButton :UIButton!
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         return fieldArray.count
-        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell :RegisterLoginTableViewCell = tableView.dequeueReusableCellWithIdentifier("rlcell") as! RegisterLoginTableViewCell
+        let cell :ProfileTextFieldTableViewCell = tableView.dequeueReusableCellWithIdentifier("rlcell") as! ProfileTextFieldTableViewCell
 //        let currentUser = userArray[indexPath.row]
-        cell.dynamicLabel.text = fieldArray[indexPath.row]
+        cell.dynamicTFCLabel.text = fieldArray[indexPath.row]
+        cell.dynamicProfileTextField.addTarget(self, action: "textFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
         tableView.scrollEnabled = false
         
         
         return cell
         
     }
+    
+    func textFieldChanged(sender: AnyObject) {
+        let dataFieldPosition = sender.convertPoint(CGPointZero, toView: loginTableView)
+        println("TFC1")
+        let indexPath = loginTableView.indexPathForRowAtPoint(dataFieldPosition)
+        println("TFC2")
+        let cell = loginTableView.cellForRowAtIndexPath(indexPath!)
+        if cell is ProfileTextFieldTableViewCell {
+            println("TFC3")
+            let sCell = loginTableView.cellForRowAtIndexPath(indexPath!) as! ProfileTextFieldTableViewCell
+            if sCell.dynamicTFCLabel.text == "Email" {
+                if sCell.dynamicProfileTextField != nil {
+                    emailField = sCell.dynamicProfileTextField.text
+                    println("TFC4")
+                    println("\(emailField)")
+                }
+            }
+            if sCell.dynamicTFCLabel.text == "First Name" {
+                if sCell.dynamicProfileTextField != nil {
+                firstNameField = sCell.dynamicProfileTextField.text
+                }
+            }
+            if sCell.dynamicTFCLabel.text == "Username" {
+                if sCell.dynamicProfileTextField != nil {
+                usernameField = sCell.dynamicProfileTextField.text
+                }
+            }
+            if sCell.dynamicTFCLabel.text == "Password" {
+                if sCell.dynamicProfileTextField != nil {
+                    passwordField = sCell.dynamicProfileTextField.text
+                }
+            }
+        }
+    }
+    
+    
+   @IBAction func LoginUser(sender: UIButton){
+        
+    let url = NSURL(string: "http://sluggr-api.herokuapp.com")
+    let request = NSMutableURLRequest(URL: url!)
+    request.HTTPMethod = "GET"
+    println("ZZZZZZZZZZZ: \(emailField)")
+    request.setValue("\(emailField)", forHTTPHeaderField: "email")
+    request.setValue("\(passwordField)", forHTTPHeaderField: "password")
+
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+            println("error: \(error)")
+            var err: NSError
+            var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+        
+        println("\(jsonResult)")
+            })
+    
+    
+    }
+    
+    @IBAction func signUpUser(sender: UIButton){
+        
+        let url = NSURL(string: "http://sluggr-api.herokuapp.com")
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "POST"
+        println("ZZZZZZZZZZZ: \(emailField)")
+        println("BBBBBBBBB: \(passwordField)")
+        println("DDDDDDDD: \(firstNameField)")
+        println("EEEEEEEE: \(usernameField)")
+        
+        request.setValue("\(emailField)", forHTTPHeaderField: "email")
+        request.setValue("\(passwordField)", forHTTPHeaderField: "password")
+        request.setValue("\(firstNameField)", forHTTPHeaderField: "first_name")
+        request.setValue("\(usernameField)", forHTTPHeaderField: "username")
+
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+            println("error: \(error)")
+            var err: NSError
+            var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+            
+            println("\(jsonResult)")
+        })
+    }
+    
     
     
     override func viewDidLoad() {

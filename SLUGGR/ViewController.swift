@@ -44,12 +44,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             for userDict in usersDictArray {
                 let user = Users()
                 user.userFirstName = userDict.objectForKey("first_name") as! String
-                user.userLastName = userDict.objectForKey("last_name") as! String
+                user.userLastName = userDict.objectForKey("last_name") as? String
                 user.userEmail = userDict.objectForKey("email") as! String
                 user.userBio = userDict.objectForKey("bio") as? String
                 user.userMorningTime = userDict.objectForKey("morning_time") as? NSDate
                 user.userEveningTime = userDict.objectForKey("evening_time") as? NSDate
-                user.driverStatus = userDict.objectForKey("driver") as! Bool
+                user.driverStatus = userDict.objectForKey("driver") as? Bool
                 user.userHomeLat = userDict.objectForKey("home_lat") as? Float
                 user.userHomeLong = userDict.objectForKey("home_lng") as? Float
                 user.userHomeLocale = userDict.objectForKey("home_locale") as? String
@@ -190,6 +190,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell :UserTableViewCell = tableView.dequeueReusableCellWithIdentifier("cell") as! UserTableViewCell
            let currentUser = userArray[indexPath.row]
             cell.nameLabel.text = currentUser.userFirstName
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
         
         return cell
         
