@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9FADE6781B79853B00F271C9 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FADE6771B79853B00F271C9 /* GroupTableViewCell.swift */; };
+		9FADE67E1B79889B00F271C9 /* speech_bubble_117740.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9FADE67D1B79889B00F271C9 /* speech_bubble_117740.jpg */; };
+		9FADE6801B7A686000F271C9 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FADE67F1B7A686000F271C9 /* arrow.png */; };
 		9FD8F2431B6BD0E100B2DAF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8F2421B6BD0E100B2DAF7 /* AppDelegate.swift */; };
 		9FD8F2451B6BD0E100B2DAF7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8F2441B6BD0E100B2DAF7 /* ViewController.swift */; };
 		9FD8F2481B6BD0E100B2DAF7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD8F2461B6BD0E100B2DAF7 /* Main.storyboard */; };
@@ -17,7 +20,6 @@
 		9FD8F2651B6BF8CF00B2DAF7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8F2641B6BF8CF00B2DAF7 /* LoginViewController.swift */; };
 		9FD8F26C1B6FB8E800B2DAF7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD8F26B1B6FB8E800B2DAF7 /* MapKit.framework */; };
 		9FD8F2711B6FCA8300B2DAF7 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8F2701B6FCA8300B2DAF7 /* Users.swift */; };
-		9FD8F2731B6FCE5700B2DAF7 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8F2721B6FCE5700B2DAF7 /* Groups.swift */; };
 		9FDAB5871B72674C007F5327 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAB5861B72674C007F5327 /* EditProfileViewController.swift */; };
 		9FDAB5931B73AA69007F5327 /* ProfileTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAB5921B73AA69007F5327 /* ProfileTextFieldTableViewCell.swift */; };
 		9FDAB5951B73AB48007F5327 /* ProfileTextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAB5941B73AB48007F5327 /* ProfileTextViewTableViewCell.swift */; };
@@ -39,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9FADE6771B79853B00F271C9 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
+		9FADE67D1B79889B00F271C9 /* speech_bubble_117740.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = speech_bubble_117740.jpg; sourceTree = "<group>"; };
+		9FADE67F1B7A686000F271C9 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		9FD8F23D1B6BD0E100B2DAF7 /* SLUGGR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SLUGGR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD8F2411B6BD0E100B2DAF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FD8F2421B6BD0E100B2DAF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -53,7 +58,6 @@
 		9FD8F2641B6BF8CF00B2DAF7 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9FD8F26B1B6FB8E800B2DAF7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9FD8F2701B6FCA8300B2DAF7 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
-		9FD8F2721B6FCE5700B2DAF7 /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
 		9FDAB5861B72674C007F5327 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		9FDAB5921B73AA69007F5327 /* ProfileTextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		9FDAB5941B73AB48007F5327 /* ProfileTextViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTextViewTableViewCell.swift; sourceTree = "<group>"; };
@@ -107,10 +111,11 @@
 				9FD8F2421B6BD0E100B2DAF7 /* AppDelegate.swift */,
 				9FDAB5881B72675E007F5327 /* View Controllers */,
 				9FDAB5891B726771007F5327 /* Custom TableView Cells */,
-				9FD8F2721B6FCE5700B2DAF7 /* Groups.swift */,
 				9FDAB5A31B7532E7007F5327 /* CurrentUserManager.swift */,
 				9FD8F2701B6FCA8300B2DAF7 /* Users.swift */,
+				9FADE67D1B79889B00F271C9 /* speech_bubble_117740.jpg */,
 				9FD8F2461B6BD0E100B2DAF7 /* Main.storyboard */,
+				9FADE67F1B7A686000F271C9 /* arrow.png */,
 				9FD8F2491B6BD0E100B2DAF7 /* Images.xcassets */,
 				9FD8F24B1B6BD0E100B2DAF7 /* LaunchScreen.xib */,
 				9FD8F26D1B6FC77A00B2DAF7 /* Frameworks */,
@@ -166,6 +171,7 @@
 		9FDAB5891B726771007F5327 /* Custom TableView Cells */ = {
 			isa = PBXGroup;
 			children = (
+				9FADE6771B79853B00F271C9 /* GroupTableViewCell.swift */,
 				9FDAB5A11B753104007F5327 /* ProfileLabelTableViewCell.swift */,
 				9FDAB5921B73AA69007F5327 /* ProfileTextFieldTableViewCell.swift */,
 				9FDAB5941B73AB48007F5327 /* ProfileTextViewTableViewCell.swift */,
@@ -263,7 +269,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FD8F2481B6BD0E100B2DAF7 /* Main.storyboard in Resources */,
+				9FADE67E1B79889B00F271C9 /* speech_bubble_117740.jpg in Resources */,
 				9FD8F24D1B6BD0E100B2DAF7 /* LaunchScreen.xib in Resources */,
+				9FADE6801B7A686000F271C9 /* arrow.png in Resources */,
 				9FD8F24A1B6BD0E100B2DAF7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,8 +299,8 @@
 				9FD8F2711B6FCA8300B2DAF7 /* Users.swift in Sources */,
 				9FD8F2631B6BF6AC00B2DAF7 /* UserTableViewCell.swift in Sources */,
 				9FDAB5A21B753104007F5327 /* ProfileLabelTableViewCell.swift in Sources */,
+				9FADE6781B79853B00F271C9 /* GroupTableViewCell.swift in Sources */,
 				9FD8F2431B6BD0E100B2DAF7 /* AppDelegate.swift in Sources */,
-				9FD8F2731B6FCE5700B2DAF7 /* Groups.swift in Sources */,
 				9FDAB5931B73AA69007F5327 /* ProfileTextFieldTableViewCell.swift in Sources */,
 				9FDAB5871B72674C007F5327 /* EditProfileViewController.swift in Sources */,
 				9FDAB5991B73AC61007F5327 /* ProfileDateTableViewCell.swift in Sources */,

@@ -19,7 +19,7 @@ class Users: NSObject {
     var userHomeLat :Float?
     var userHomeLong :Float?
     var userHomeLocale :String?
-    var userID :Int?
+    var userID :Int!
     var userMorningTime :NSDate?
     var userEveningTime :NSDate?
     var userPreferences :String?
@@ -27,5 +27,7 @@ class Users: NSObject {
     var userWorkLat :Float?
     var userWorkLong :Float?
     var userWorkLocale :String?
+    var userDistance :Float?
+    var userDistanceType :String?
     
 }

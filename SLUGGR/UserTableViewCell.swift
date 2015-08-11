@@ -13,6 +13,7 @@ class UserTableViewCell: UITableViewCell {
     
     @IBOutlet var nameLabel :UILabel!
     @IBOutlet var destinationLabel :UILabel!
+    @IBOutlet var departureLabel :UILabel!
     @IBOutlet var rideshareButton :UIButton!
     @IBOutlet var chatButton :UIButton!
     

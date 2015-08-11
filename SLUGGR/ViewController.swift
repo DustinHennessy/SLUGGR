@@ -17,8 +17,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var locationManager :CLLocationManager!
     var lastLocation :CLLocation!
     var userArray = [Users]()
+    var groupArray = [Users]()
     @IBOutlet var userTableView :UITableView!
     @IBOutlet var mapView :MKMapView!
+    let userManager = CurrentUserManager.sharedInstance
+    var inviteeID :Int!
+    var inviteeName :String!
+    var inviteeEmail :String!
+    @IBOutlet var segmentedControl :UISegmentedControl!
+
     
     
     
@@ -32,7 +39,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "GET"
         let tempEmail = "a@b.com"
-        request.setValue("basic \(tempEmail)", forHTTPHeaderField: "email")
+        request.setValue("basic \(userManager.currentUser?.userEmail)", forHTTPHeaderField: "email")
+        println("Current User Email!!! \(userManager.currentUser?.userEmail)")
         
         //firing the request
         //let urlConnection = NSURLConnection(request: request, delegate: self)
@@ -64,7 +72,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 
             }
             self.userTableView.reloadData()
-            self.annotatingUsers()
+//            self.annotatingUsers()
             println("\(jsonResult)")
         })
         println("GDFA End")
@@ -113,6 +121,100 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
+    //MARK: - Invite Users
+    
+    @IBAction func inviteUsers(sender: UIButton) {
+        if userManager.currentUser?.userEmail != nil {
+            let dataFieldPosition = sender.convertPoint(CGPointZero, toView: userTableView)
+            let indexPath = userTableView.indexPathForRowAtPoint(dataFieldPosition)
+            let currentInvitee = userArray[indexPath!.row]
+            //creating the request
+            let url = NSURL(string: "http://sluggr-api.herokuapp.com/invite?rider_id=\(currentInvitee.userID)")
+            let request = NSMutableURLRequest(URL: url!)
+            request.HTTPMethod = "GET"
+            request.setValue("basic \(userManager.currentUser?.userEmail)", forHTTPHeaderField: "email")
+            
+            println("user email to be invited **\(userManager.currentUser!.userEmail)")
+            println("invitee ID **\(currentInvitee.userID)")
+            println("invitee name \(currentInvitee.userFirstName)")
+            println("invitee email \(currentInvitee.userEmail)")
+            
+            //firing the request
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+                println("error: \(error)")
+                println("response: \(response)")
+                let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)
+                println("data:\(dataString)")
+                
+                var err: NSError
+                var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+                //            let usersDictArray = jsonResult.objectForKey("users") as! [NSDictionary]
+                //            for userDict in usersDictArray {
+                //                
+                //            }
+                println("\(jsonResult)")
+                
+            })
+        }
+    }
+    
+    
+    //MARK: - Segmented control
+    
+    @IBAction func segmentedControlPressed(sender: UISegmentedControl) {
+        if userManager.currentUser?.userEmail != nil {
+            if sender.selectedSegmentIndex == 1 {
+                let url = NSURL(string: "http://sluggr-api.herokuapp.com/group")
+                let request = NSMutableURLRequest(URL: url!)
+                request.HTTPMethod = "GET"
+                request.setValue("basic \(userManager.currentUser?.userEmail)", forHTTPHeaderField: "email")
+                
+                //firing the request
+                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+                    println("error: \(error)")
+                    println("response: \(response)")
+                    let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)
+                    println("data:\(dataString)")
+                    
+                    var err: NSError
+                    var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+                    let groupDictArray = jsonResult.objectForKey("group") as! [NSDictionary]
+                    for groupDict in groupDictArray {
+                        let user = Users()
+                        if let groupMemberName = groupDict.objectForKey("first_name") as? String {
+                            println("Member name::::\(groupMemberName)")
+                            user.userFirstName = groupMemberName
+                            //                    groupDict.objectForKey("first_name") as! String
+                        }
+                        if let memberLastName = groupDict.objectForKey("last_name") as? String {
+                            user.userLastName = memberLastName
+                            //                        groupDict.objectForKey("last_name") as? String
+                        }
+                        user.userHomeLocale = groupDict.objectForKey("home_locale") as? String
+                        user.userWorkLocale = groupDict.objectForKey("work_locale") as? String
+                        if groupDict.objectForKey("driver") as? Int == 1 {
+                            user.driverStatus = true
+                        } else {
+                            user.driverStatus = false
+                        }
+                        
+                        self.groupArray.append(user)
+                    }
+                    
+                    println("\(jsonResult)")
+                    self.userTableView.reloadData()
+                })
+            }
+            self.userTableView.reloadData()
+
+        }
+        
+    }
+    
+    
+    
+    
+    
     //MARK: - Map Methods
     
     func zoomToLocationWithLat(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
@@ -128,36 +230,67 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //MARK: - Map Annotations
     
-    func annotatingUsers() {
-        println("AU Start")
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var locs = [MKPointAnnotation]()
         for annot in mapView.annotations {
             if annot is MKPointAnnotation {
                 locs.append(annot as! MKPointAnnotation)
             }
         }
+
         mapView.removeAnnotations(locs)
         
         var pins = [MKPointAnnotation]()
-        for user in userArray {
-            if (user.userWorkLat != nil && user.userWorkLong != nil) {
-                var wpa = MKPointAnnotation()
-                wpa.coordinate = CLLocationCoordinate2DMake(Double(user.userWorkLat!), Double(user.userWorkLong!))
-                wpa.title = "Work: \(user.userFirstName) \(user.userLastName)"
-                println("user first name: \(user.userFirstName)")
-                pins.append(wpa)
-            }
-            if (user.userWorkLong != nil && user.userWorkLat != nil) {
-                var hpa = MKPointAnnotation()
-                hpa.coordinate = CLLocationCoordinate2DMake(Double(user.userHomeLat!), Double(user.userHomeLong!))
-                hpa.title = "Home: \(user.userFirstName) \(user.userLastName)"
-                pins.append(hpa)
-            }
+        let currentUser = userArray[indexPath.row]
+        if (currentUser.userWorkLat != nil && currentUser.userWorkLong != nil) {
+            var wpa = MKPointAnnotation()
+            wpa.coordinate = CLLocationCoordinate2DMake(Double(currentUser.userWorkLat!), Double(currentUser.userWorkLong!))
+            wpa.title = "Work: \(currentUser.userFirstName) \(currentUser.userLastName)"
+            println("user first name: \(currentUser.userFirstName)")
+            pins.append(wpa)
         }
+        if (currentUser.userHomeLat != nil && currentUser.userHomeLong != nil) {
+            var hpa = MKPointAnnotation()
+            hpa.coordinate = CLLocationCoordinate2DMake(Double(currentUser.userHomeLat!), Double(currentUser.userHomeLong!))
+            hpa.title = "Home: \(currentUser.userFirstName) \(currentUser.userLastName)"
+            pins.append(hpa)
+        }
+        
         println("Count: \(pins.count)")
         mapView.addAnnotations(pins)
         println("AU End")
+
     }
+
+//    func annotatingUsers() {
+//        println("AU Start")
+//        var locs = [MKPointAnnotation]()
+//        for annot in mapView.annotations {
+//            if annot is MKPointAnnotation {
+//                locs.append(annot as! MKPointAnnotation)
+//            }
+//        }
+//        mapView.removeAnnotations(locs)
+//        var pins = [MKPointAnnotation]()
+//        for user in userArray {
+//            if (user.userWorkLat != nil && user.userWorkLong != nil) {
+//                var wpa = MKPointAnnotation()
+//                wpa.coordinate = CLLocationCoordinate2DMake(Double(user.userWorkLat!), Double(user.userWorkLong!))
+//                wpa.title = "Work: \(user.userFirstName) \(user.userLastName)"
+//                println("user first name: \(user.userFirstName)")
+//                pins.append(wpa)
+//            }
+//            if (user.userWorkLong != nil && user.userWorkLat != nil) {
+//                var hpa = MKPointAnnotation()
+//                hpa.coordinate = CLLocationCoordinate2DMake(Double(user.userHomeLat!), Double(user.userHomeLong!))
+//                hpa.title = "Home: \(user.userFirstName) \(user.userLastName)"
+//                pins.append(hpa)
+//            }
+//        }
+//        println("Count: \(pins.count)")
+//        mapView.addAnnotations(pins)
+//        println("AU End")
+//    }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         if (annotation is MKUserLocation) {
@@ -182,17 +315,36 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //MARK: - Table View Methods
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userArray.count
-    
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            return userArray.count
+        case 1:
+            return groupArray.count
+        default:
+            return userArray.count
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell :UserTableViewCell = tableView.dequeueReusableCellWithIdentifier("cell") as! UserTableViewCell
-           let currentUser = userArray[indexPath.row]
+        if segmentedControl.selectedSegmentIndex == 0 {
+            let cell :UserTableViewCell = tableView.dequeueReusableCellWithIdentifier("cell") as! UserTableViewCell
+            let currentUser = userArray[indexPath.row]
             cell.nameLabel.text = currentUser.userFirstName
+            cell.destinationLabel.text = currentUser.userWorkLocale
+            cell.departureLabel.text = currentUser.userHomeLocale
             cell.selectionStyle = UITableViewCellSelectionStyle.None
+
+            return cell
+            
+        } else {
+            let groupCell :GroupTableViewCell = tableView.dequeueReusableCellWithIdentifier("GroupCell") as! GroupTableViewCell
+            let currentUser = groupArray[indexPath.row]
+            groupCell.groupMemberNameLabel.text = currentUser.userFirstName
+            groupCell.selectionStyle = UITableViewCellSelectionStyle.None
+            
+            return groupCell
+        }
         
-        return cell
         
     }
     
