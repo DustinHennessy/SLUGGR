@@ -103,7 +103,7 @@ class LoginViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     }
     
-    @IBAction func signUpUser(sender: UIButton){
+    @IBAction func signUpUser(sender: UIBarButtonItem){
         
         let url = NSURL(string: "http://sluggr-api.herokuapp.com/demo_user/create")
         let request = NSMutableURLRequest(URL: url!)

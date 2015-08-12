@@ -58,8 +58,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 user.userLastName = userDict.objectForKey("last_name") as? String
                 user.userEmail = userDict.objectForKey("email") as! String
                 user.userBio = userDict.objectForKey("bio") as? String
-                user.userMorningTime = userDict.objectForKey("morning_time") as? NSDate
-                user.userEveningTime = userDict.objectForKey("evening_time") as? NSDate
+                user.userMorningTime = userDict.objectForKey("morning_time") as? String
+                user.userEveningTime = userDict.objectForKey("evening_time") as? String
                 user.driverStatus = userDict.objectForKey("driver") as? Bool
                 user.userHomeLat = userDict.objectForKey("home_lat") as? Float
                 user.userHomeLong = userDict.objectForKey("home_lng") as? Float
@@ -278,7 +278,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //MARK: - Map Annotations
     
+    func formatDate(date: NSDate) -> String {
+        var dateFormatter :NSDateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        return dateFormatter.stringFromDate(date)
+    }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        
         var locs = [MKPointAnnotation]()
         for annot in mapView.annotations {
             if annot is MKPointAnnotation {
@@ -290,17 +298,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         var pins = [MKPointAnnotation]()
         let tappedUser = userArray[indexPath.row]
+        
         if (tappedUser.userWorkLat != nil && tappedUser.userWorkLong != nil) {
             var wpa = MKPointAnnotation()
             wpa.coordinate = CLLocationCoordinate2DMake(Double(tappedUser.userWorkLat!), Double(tappedUser.userWorkLong!))
             wpa.title = "Work: \(tappedUser.userFirstName) \(tappedUser.userLastName)"
+            println("\(tappedUser.userEveningTime)")
+            if tappedUser.userEveningTime != nil {
+                wpa.subtitle = "Departure time: \(tappedUser.userEveningTime!)"
+            }
             println("user first name: \(tappedUser.userFirstName)")
+            
             pins.append(wpa)
         }
         if (tappedUser.userHomeLat != nil && tappedUser.userHomeLong != nil) {
             var hpa = MKPointAnnotation()
             hpa.coordinate = CLLocationCoordinate2DMake(Double(tappedUser.userHomeLat!), Double(tappedUser.userHomeLong!))
             hpa.title = "Home: \(tappedUser.userFirstName) \(tappedUser.userLastName)"
+            if tappedUser.userEveningTime != nil {
+                hpa.subtitle = "Departure time: \(tappedUser.userMorningTime!)"
+            }
             pins.append(hpa)
         }
         
@@ -364,6 +381,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     //MARK: - Table View Methods
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 150
+    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch segmentedControl.selectedSegmentIndex {

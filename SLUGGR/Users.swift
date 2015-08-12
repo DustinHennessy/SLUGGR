@@ -20,8 +20,8 @@ class Users: NSObject {
     var userHomeLong :Float?
     var userHomeLocale :String?
     var userID :Int!
-    var userMorningTime :NSDate?
-    var userEveningTime :NSDate?
+    var userMorningTime :String?
+    var userEveningTime :String?
     var userPreferences :String?
     var username :String!
     var userWorkLat :Float?
