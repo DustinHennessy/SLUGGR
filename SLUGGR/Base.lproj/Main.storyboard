@@ -20,11 +20,13 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="N4G-mD-Z6I">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="348"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="348" id="W5U-Qz-kUo"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="QKx-aa-Yoa"/>
+                                    <outletCollection property="gestureRecognizers" destination="Eeq-o5-msB" appends="YES" id="LvE-C6-MhG"/>
                                 </connections>
                             </mapView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="114" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="2EN-GE-UCg">
@@ -42,7 +44,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="1po-jh-wGd"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" name="KohinoorDevanagari-Book" family="Kohinoor Devanagari" pointSize="20"/>
                                                     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <state key="normal" title="Invite to Rideshare">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,7 +60,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="41" id="E8N-7b-aTE"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" name="KohinoorDevanagari-Book" family="Kohinoor Devanagari" pointSize="20"/>
                                                     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <state key="normal" title="Chat">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -68,7 +70,7 @@
                                                         <segue destination="s8d-g6-Q5T" kind="show" id="hEr-l5-mC8"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipc-3H-p1B">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="SLUGGR Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipc-3H-p1B">
                                                     <rect key="frame" x="0.0" y="-1" width="600" height="30"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -76,16 +78,8 @@
                                                         <constraint firstAttribute="width" constant="255" id="eM8-ce-0JH"/>
                                                         <constraint firstAttribute="height" constant="31" id="faE-0f-fZZ"/>
                                                     </constraints>
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="SLUGGR Name">
-                                                            <attributes>
-                                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <font key="NSFont" size="19" name="ArialMT"/>
-                                                                <font key="NSOriginalFont" size="17" name="ArialMT"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
+                                                    <fontDescription key="fontDescription" name="KohinoorDevanagari-Medium" family="Kohinoor Devanagari" pointSize="24"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -101,7 +95,7 @@
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="Uzf-07-Muh"/>
                                                         <constraint firstAttribute="height" constant="38" id="oRK-AW-R7X"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="19"/>
+                                                    <fontDescription key="fontDescription" name="KohinoorDevanagari-Book" family="Kohinoor Devanagari" pointSize="20"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                     <color key="shadowColor" white="0.85133977520000004" alpha="1" colorSpace="calibratedWhite"/>
@@ -113,7 +107,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="38" id="ryU-u4-nre"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="19"/>
+                                                    <fontDescription key="fontDescription" name="KohinoorDevanagari-Book" family="Kohinoor Devanagari" pointSize="20"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                     <color key="shadowColor" white="0.85133977520000004" alpha="1" colorSpace="calibratedWhite"/>
@@ -206,7 +200,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="29" id="IuG-t9-B2F"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="KohinoorDevanagari-Book" family="Kohinoor Devanagari" pointSize="20"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -267,14 +261,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="SLUGGR" id="hib-SG-WZI">
-                        <barButtonItem key="leftBarButtonItem" title="Edite Profile" style="plain" id="5VV-ah-mlf">
+                        <barButtonItem key="leftBarButtonItem" title="Profile" style="plain" id="5VV-ah-mlf">
                             <connections>
                                 <segue destination="Vhu-cN-CVk" kind="show" id="Prt-IR-S8C"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Login" id="qCa-ot-f4A">
                             <connections>
-                                <segue destination="dCR-Oy-m23" kind="show" id="sXt-vg-gHx"/>
+                                <segue destination="dCR-Oy-m23" kind="show" identifier="toLogin" id="sXt-vg-gHx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -285,6 +279,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Eeq-o5-msB">
+                    <connections>
+                        <action selector="calculateDistance:" destination="vXZ-lx-hvc" id="XKl-ph-7BH"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="442" y="365"/>
         </scene>

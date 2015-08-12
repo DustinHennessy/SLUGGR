@@ -25,6 +25,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var inviteeName :String!
     var inviteeEmail :String!
     @IBOutlet var segmentedControl :UISegmentedControl!
+    var tappedAnnot :CLLocation?
+    var toggleIsOn = true
+    
 
     
     
@@ -79,8 +82,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     }
     
+    //MARK: - Nav Methods
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        println("Prepare For Segue")
+        if segue.identifier == "toLogin"{
+        let destController :LoginViewController = segue.destinationViewController as! LoginViewController
+        }
+    }
+    
+    func loginButtonPressed(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("toLogin", sender: self)
     }
     
     //MARK: - Location Monitoring
@@ -118,6 +129,46 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
             
         }
+        
+    }
+   
+   
+    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+        tappedAnnot = CLLocation(latitude: view.annotation.coordinate.latitude, longitude: view.annotation.coordinate.longitude)
+
+    }
+    
+    
+    @IBAction func calculateDistance(sender: UIBarButtonItem) {
+        var userLoc = CLLocation(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude)
+        if !toggleIsOn {
+            for user in userArray {
+                var latitude = 0.0
+                var longitude = 0.0
+                if user.userHomeLat != nil && user.userHomeLong != nil {
+                    latitude = Double(user.userHomeLat!)
+                    longitude = Double(user.userHomeLong!)
+                }
+                let location = CLLocation(latitude: latitude, longitude: longitude)
+                user.userDistance = userLoc.distanceFromLocation(location)
+            }
+        } else {
+            for user in userArray {
+                var latitude = 0.0
+                var longitude = 0.0
+                if user.userWorkLat != nil && user.userWorkLong != nil {
+                    latitude = Double(user.userWorkLat!)
+                    longitude = Double(user.userWorkLong!)
+                }
+                let location = CLLocation(latitude: latitude, longitude: longitude)
+                user.userDistance = userLoc.distanceFromLocation(location)
+            }
+            
+        }
+        toggleIsOn = !toggleIsOn
+        userArray.sort { $0.userDistance < $1.userDistance }
+        userTableView.reloadData()
+        println("USER LOCATION = \(userLoc)")
         
     }
     
@@ -212,9 +263,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    
-    
-    
     //MARK: - Map Methods
     
     func zoomToLocationWithLat(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
@@ -241,18 +289,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         mapView.removeAnnotations(locs)
         
         var pins = [MKPointAnnotation]()
-        let currentUser = userArray[indexPath.row]
-        if (currentUser.userWorkLat != nil && currentUser.userWorkLong != nil) {
+        let tappedUser = userArray[indexPath.row]
+        if (tappedUser.userWorkLat != nil && tappedUser.userWorkLong != nil) {
             var wpa = MKPointAnnotation()
-            wpa.coordinate = CLLocationCoordinate2DMake(Double(currentUser.userWorkLat!), Double(currentUser.userWorkLong!))
-            wpa.title = "Work: \(currentUser.userFirstName) \(currentUser.userLastName)"
-            println("user first name: \(currentUser.userFirstName)")
+            wpa.coordinate = CLLocationCoordinate2DMake(Double(tappedUser.userWorkLat!), Double(tappedUser.userWorkLong!))
+            wpa.title = "Work: \(tappedUser.userFirstName) \(tappedUser.userLastName)"
+            println("user first name: \(tappedUser.userFirstName)")
             pins.append(wpa)
         }
-        if (currentUser.userHomeLat != nil && currentUser.userHomeLong != nil) {
+        if (tappedUser.userHomeLat != nil && tappedUser.userHomeLong != nil) {
             var hpa = MKPointAnnotation()
-            hpa.coordinate = CLLocationCoordinate2DMake(Double(currentUser.userHomeLat!), Double(currentUser.userHomeLong!))
-            hpa.title = "Home: \(currentUser.userFirstName) \(currentUser.userLastName)"
+            hpa.coordinate = CLLocationCoordinate2DMake(Double(tappedUser.userHomeLat!), Double(tappedUser.userHomeLong!))
+            hpa.title = "Home: \(tappedUser.userFirstName) \(tappedUser.userLastName)"
             pins.append(hpa)
         }
         
@@ -261,37 +309,40 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         println("AU End")
 
     }
-
-//    func annotatingUsers() {
-//        println("AU Start")
-//        var locs = [MKPointAnnotation]()
-//        for annot in mapView.annotations {
-//            if annot is MKPointAnnotation {
-//                locs.append(annot as! MKPointAnnotation)
-//            }
-//        }
-//        mapView.removeAnnotations(locs)
-//        var pins = [MKPointAnnotation]()
-//        for user in userArray {
-//            if (user.userWorkLat != nil && user.userWorkLong != nil) {
-//                var wpa = MKPointAnnotation()
-//                wpa.coordinate = CLLocationCoordinate2DMake(Double(user.userWorkLat!), Double(user.userWorkLong!))
-//                wpa.title = "Work: \(user.userFirstName) \(user.userLastName)"
-//                println("user first name: \(user.userFirstName)")
-//                pins.append(wpa)
-//            }
-//            if (user.userWorkLong != nil && user.userWorkLat != nil) {
-//                var hpa = MKPointAnnotation()
-//                hpa.coordinate = CLLocationCoordinate2DMake(Double(user.userHomeLat!), Double(user.userHomeLong!))
-//                hpa.title = "Home: \(user.userFirstName) \(user.userLastName)"
-//                pins.append(hpa)
-//            }
-//        }
-//        println("Count: \(pins.count)")
-//        mapView.addAnnotations(pins)
-//        println("AU End")
-//    }
     
+    
+    
+    
+    func annotatingUsers() {
+        println("AU Start")
+        var locs = [MKPointAnnotation]()
+        for annot in mapView.annotations {
+            if annot is MKPointAnnotation {
+                locs.append(annot as! MKPointAnnotation)
+            }
+        }
+        mapView.removeAnnotations(locs)
+        var pins = [MKPointAnnotation]()
+        if  let currentUser = userManager.currentUser {
+            if (currentUser.userWorkLat != nil && currentUser.userWorkLong != nil) {
+                var wpa = MKPointAnnotation()
+                wpa.coordinate = CLLocationCoordinate2DMake(Double(currentUser.userWorkLat!), Double(currentUser.userWorkLong!))
+                wpa.title = "Work: \(currentUser.userFirstName) \(currentUser.userLastName)"
+                println("user first name: \(currentUser.userFirstName)")
+                pins.append(wpa)
+            }
+            if (currentUser.userHomeLong != nil && currentUser.userHomeLat != nil) {
+                var hpa = MKPointAnnotation()
+                hpa.coordinate = CLLocationCoordinate2DMake(Double(currentUser.userHomeLat!), Double(currentUser.userHomeLong!))
+                hpa.title = "Home: \(currentUser.userFirstName) \(currentUser.userLastName)"
+                pins.append(hpa)
+            }
+        }
+    println("Count: \(pins.count)")
+    mapView.addAnnotations(pins)
+    println("AU End")
+}
+
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         if (annotation is MKUserLocation) {
             return nil
@@ -331,7 +382,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let currentUser = userArray[indexPath.row]
             cell.nameLabel.text = currentUser.userFirstName
             cell.destinationLabel.text = currentUser.userWorkLocale
-            cell.departureLabel.text = currentUser.userHomeLocale
+            if let userDist = currentUser.userDistance {
+                cell.departureLabel.text = "\(userDist)"
+            } else {
+                cell.departureLabel.text = currentUser.userHomeLocale
+            }
             cell.selectionStyle = UITableViewCellSelectionStyle.None
 
             return cell
@@ -358,6 +413,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         prepareLocationMonitoring()
+        annotatingUsers()
+        let barButton1 = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.Plain, target: self, action: "loginButtonPressed:")
+        let barButton2 = UIBarButtonItem(title: "Sort Users", style: UIBarButtonItemStyle.Plain, target: self, action: "calculateDistance:")
+        
+        let barButtonArray = [barButton1, barButton2]
+        self.navigationItem.rightBarButtonItems = barButtonArray
         println("VWA END")
     }
     

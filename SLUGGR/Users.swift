@@ -27,7 +27,7 @@ class Users: NSObject {
     var userWorkLat :Float?
     var userWorkLong :Float?
     var userWorkLocale :String?
-    var userDistance :Float?
+    var userDistance :Double?
     var userDistanceType :String?
     
 }
