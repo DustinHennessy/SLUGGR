@@ -1,17 +1,17 @@
 //
-//  GroupTableViewCell.swift
+//  MemberEmailTableViewCell.swift
 //  SLUGGR
 //
-//  Created by Dustin Hennessy on 8/10/15.
+//  Created by Dustin Hennessy on 8/17/15.
 //  Copyright (c) 2015 DustinHennessy. All rights reserved.
 //
 
 import UIKit
 
-class GroupTableViewCell: UITableViewCell {
+class MemberEmailTableViewCell: UITableViewCell {
 
-    
-    @IBOutlet var groupMemberNameLabel :UILabel!
+    @IBOutlet var emailAddressLabel :UILabel!
+    @IBOutlet var emailButton :UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -1,17 +1,16 @@
 //
-//  GroupTableViewCell.swift
+//  MemberNameTableViewCell.swift
 //  SLUGGR
 //
-//  Created by Dustin Hennessy on 8/10/15.
+//  Created by Dustin Hennessy on 8/17/15.
 //  Copyright (c) 2015 DustinHennessy. All rights reserved.
 //
 
 import UIKit
 
-class GroupTableViewCell: UITableViewCell {
+class MemberNameTableViewCell: UITableViewCell {
 
-    
-    @IBOutlet var groupMemberNameLabel :UILabel!
+    @IBOutlet var memberFullNameLabel :UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

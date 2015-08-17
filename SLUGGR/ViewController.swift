@@ -11,6 +11,7 @@ import CoreLocation
 import MapKit
 
 
+
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate {
 
     
@@ -85,10 +86,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //MARK: - Nav Methods
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "toLogin"{
-        let destController :LoginViewController = segue.destinationViewController as! LoginViewController
+        println("PFS 1")
+        if segue.identifier == "toMemberDetail" {
+            println("PFS 2")
+            let destController = segue.destinationViewController as! MemberDetailViewController
+            let indexPath = userTableView.indexPathForSelectedRow()
+            if let unwrappedIndexPath = indexPath {
+                let currentUser = groupArray[unwrappedIndexPath.row]
+                println("pfs \(currentUser.userFirstName) & \(currentUser.userEmail)")
+                destController.selectedUser = currentUser
+                userTableView.deselectRowAtIndexPath(unwrappedIndexPath, animated: true)
+            }
         }
+
     }
+    
     
     func loginButtonPressed(sender: UIBarButtonItem) {
         performSegueWithIdentifier("toLogin", sender: self)
@@ -243,6 +255,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         }
                         user.userHomeLocale = groupDict.objectForKey("home_locale") as? String
                         user.userWorkLocale = groupDict.objectForKey("work_locale") as? String
+                        user.userEmail = groupDict.objectForKey("email") as! String
+                        user.userBio = groupDict.objectForKey("bio") as? String
+                        user.userPreferences = groupDict.objectForKey("preferences") as? String
+                        user.userMorningTime = groupDict.objectForKey("morning_time") as? String
+                        user.userEveningTime = groupDict.objectForKey("evening_time") as? String
                         if groupDict.objectForKey("driver") as? Int == 1 {
                             user.driverStatus = true
                         } else {
@@ -297,7 +314,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         mapView.removeAnnotations(locs)
         
         var pins = [MKPointAnnotation]()
-        let tappedUser = userArray[indexPath.row]
+        var tappedUser = Users()
+        if segmentedControl.selectedSegmentIndex == 0 {
+            tappedUser = userArray[indexPath.row]
+        } else {
+            tappedUser = groupArray[indexPath.row]
+        }
         
         if (tappedUser.userWorkLat != nil && tappedUser.userWorkLong != nil) {
             var wpa = MKPointAnnotation()
@@ -320,13 +342,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
             pins.append(hpa)
         }
-        
         println("Count: \(pins.count)")
         mapView.addAnnotations(pins)
         println("AU End")
-
+        
+        if segmentedControl.selectedSegmentIndex == 1 {
+            performSegueWithIdentifier("toMemberDetail", sender: self)
+        }
     }
-    
     
     
     

@@ -1,17 +1,20 @@
 //
-//  GroupTableViewCell.swift
+//  MemberTravelTableViewCell.swift
 //  SLUGGR
 //
-//  Created by Dustin Hennessy on 8/10/15.
+//  Created by Dustin Hennessy on 8/17/15.
 //  Copyright (c) 2015 DustinHennessy. All rights reserved.
 //
 
 import UIKit
 
-class GroupTableViewCell: UITableViewCell {
+class MemberTravelTableViewCell: UITableViewCell {
 
+    @IBOutlet var dynamicDepartLabel :UILabel!
+    @IBOutlet var dynamicDetailDepartLabel :UILabel!
+    @IBOutlet var dynamicDestLabel :UILabel!
+    @IBOutlet var dynamicDetailDestLabel :UILabel!
     
-    @IBOutlet var groupMemberNameLabel :UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

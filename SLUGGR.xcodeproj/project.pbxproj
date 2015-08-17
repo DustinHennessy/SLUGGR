@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F9FBEDC1B822879002C288C /* MemberNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9FBEDB1B822879002C288C /* MemberNameTableViewCell.swift */; };
+		9F9FBEDE1B822895002C288C /* MemberEmailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9FBEDD1B822895002C288C /* MemberEmailTableViewCell.swift */; };
+		9F9FBEE01B8228BA002C288C /* MemberTravelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9FBEDF1B8228BA002C288C /* MemberTravelTableViewCell.swift */; };
+		9F9FBEE21B822C4E002C288C /* MemberDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9FBEE11B822C4E002C288C /* MemberDetailViewController.swift */; };
 		9FADE6781B79853B00F271C9 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FADE6771B79853B00F271C9 /* GroupTableViewCell.swift */; };
 		9FADE6821B7A880700F271C9 /* destinationArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FADE6811B7A880700F271C9 /* destinationArrow.png */; };
 		9FADE6841B7BA32000F271C9 /* Sort.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FADE6831B7BA32000F271C9 /* Sort.png */; };
@@ -41,6 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F9FBEDB1B822879002C288C /* MemberNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberNameTableViewCell.swift; sourceTree = "<group>"; };
+		9F9FBEDD1B822895002C288C /* MemberEmailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberEmailTableViewCell.swift; sourceTree = "<group>"; };
+		9F9FBEDF1B8228BA002C288C /* MemberTravelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberTravelTableViewCell.swift; sourceTree = "<group>"; };
+		9F9FBEE11B822C4E002C288C /* MemberDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberDetailViewController.swift; sourceTree = "<group>"; };
 		9FADE6771B79853B00F271C9 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		9FADE6811B7A880700F271C9 /* destinationArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = destinationArrow.png; sourceTree = "<group>"; };
 		9FADE6831B7BA32000F271C9 /* Sort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sort.png; sourceTree = "<group>"; };
@@ -163,6 +171,7 @@
 			children = (
 				9FD8F2441B6BD0E100B2DAF7 /* ViewController.swift */,
 				9FD8F2641B6BF8CF00B2DAF7 /* LoginViewController.swift */,
+				9F9FBEE11B822C4E002C288C /* MemberDetailViewController.swift */,
 				9FDAB5861B72674C007F5327 /* EditProfileViewController.swift */,
 			);
 			name = "View Controllers";
@@ -179,6 +188,9 @@
 				9FDAB5981B73AC61007F5327 /* ProfileDateTableViewCell.swift */,
 				9FDAB59A1B73ACA1007F5327 /* ProfileMapTableViewCell.swift */,
 				9FD8F2621B6BF6AC00B2DAF7 /* UserTableViewCell.swift */,
+				9F9FBEDD1B822895002C288C /* MemberEmailTableViewCell.swift */,
+				9F9FBEDB1B822879002C288C /* MemberNameTableViewCell.swift */,
+				9F9FBEDF1B8228BA002C288C /* MemberTravelTableViewCell.swift */,
 			);
 			name = "Custom TableView Cells";
 			sourceTree = "<group>";
@@ -227,6 +239,7 @@
 		9FD8F2351B6BD0E100B2DAF7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = DustinHennessy;
 				TargetAttributes = {
@@ -291,16 +304,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FDAB5951B73AB48007F5327 /* ProfileTextViewTableViewCell.swift in Sources */,
+				9F9FBEE01B8228BA002C288C /* MemberTravelTableViewCell.swift in Sources */,
 				9FD8F2651B6BF8CF00B2DAF7 /* LoginViewController.swift in Sources */,
 				9FDAB5971B73ABEF007F5327 /* ProfileSwitchTableViewCell.swift in Sources */,
 				9FD8F2451B6BD0E100B2DAF7 /* ViewController.swift in Sources */,
+				9F9FBEDC1B822879002C288C /* MemberNameTableViewCell.swift in Sources */,
 				9FDAB59B1B73ACA1007F5327 /* ProfileMapTableViewCell.swift in Sources */,
 				9FDAB5A41B7532E7007F5327 /* CurrentUserManager.swift in Sources */,
 				9FD8F2711B6FCA8300B2DAF7 /* Users.swift in Sources */,
 				9FD8F2631B6BF6AC00B2DAF7 /* UserTableViewCell.swift in Sources */,
+				9F9FBEE21B822C4E002C288C /* MemberDetailViewController.swift in Sources */,
 				9FDAB5A21B753104007F5327 /* ProfileLabelTableViewCell.swift in Sources */,
 				9FADE6781B79853B00F271C9 /* GroupTableViewCell.swift in Sources */,
 				9FD8F2431B6BD0E100B2DAF7 /* AppDelegate.swift in Sources */,
+				9F9FBEDE1B822895002C288C /* MemberEmailTableViewCell.swift in Sources */,
 				9FDAB5931B73AA69007F5327 /* ProfileTextFieldTableViewCell.swift in Sources */,
 				9FDAB5871B72674C007F5327 /* EditProfileViewController.swift in Sources */,
 				9FDAB5991B73AC61007F5327 /* ProfileDateTableViewCell.swift in Sources */,

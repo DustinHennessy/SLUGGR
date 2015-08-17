@@ -99,7 +99,8 @@ class LoginViewController: UIViewController, UITableViewDelegate, UITableViewDat
             self.userManager.currentUser = nil
         }
     })
-    
+    navigationController!.popToRootViewControllerAnimated(true)
+
     
     }
     
