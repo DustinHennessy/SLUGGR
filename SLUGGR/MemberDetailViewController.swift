@@ -83,6 +83,16 @@ class MemberDetailViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
+    
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        self.dismissViewControllers()
+    }
+    
+    func dismissViewControllers(){
+        self.becomeFirstResponder()
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         println("**** Got \(selectedUser.userEmail)")

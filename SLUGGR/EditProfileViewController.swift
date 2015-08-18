@@ -222,34 +222,47 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBAction func saveDataToAPI(sender: UIBarButtonItem) {
         println("SDTA Start")
-        var date = NSDate()
-        var dateFormatter :NSDateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "hh:mm a"
-        dateFormatter.stringFromDate(date)
+//        var date = NSDate()
+//        var dateFormatter :NSDateFormatter = NSDateFormatter()
+//        dateFormatter.dateFormat = "hh:mm a"
+//        dateFormatter.stringFromDate(date)
         
         //creating the request
-        let url = NSURL(string: "http://sluggr-api.herokuapp.com/demo_user/edit")
+        let url = NSURL(string: "http://sluggr-api.herokuapp.com/demo_user/edit_ios")
         let request = NSMutableURLRequest(URL: url!)
-        request.HTTPMethod = "PUT"
+        request.HTTPMethod = "POST"
         let tempEmail = "a@b.com"
-        var tempMornTM = date
-        var temPEvenTM = date
-        let tempHomeLocale = "Centreville, VA"
-        let tempWorkLocale = "Washington, D.C."
+        let tempMornTM = "4/2/22"
+        let temPEvenTM = "9:00am"
+        let tempHomeLocale = "7842 Royal Sydney Dr. Gainesville, VA 20155"
+        let tempWorkLocale = "Washington DC"
         let tempBio = "This is my bio"
+        let tempPref = "I prefer fancy stuff"
+        let templastName = "Butt" as String
         
-        //request.setValue("basic \(", forHTTPHeaderField: "home_locale") HOME LOCALE
-        println("\(tempMornTM)")
-        request.setValue("basic \(tempEmail)", forHTTPHeaderField: "email")
-        request.setValue("basic \(tempMornTM)", forHTTPHeaderField: "morning_time")
-        request.setValue("basic \(temPEvenTM)", forHTTPHeaderField: "evening_time")
-        request.setValue("basic \(tempHomeLocale)", forHTTPHeaderField: "home_locale")
-        request.setValue("basic \(tempWorkLocale)", forHTTPHeaderField: "work_locale")
-        request.setValue("basic \(tempBio)", forHTTPHeaderField: "bio")
+//        let jsonString = "json=[{\"itinerary\":{\"morning_time\":\"\(tempMornTM)\"}}]"
+//        request.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+//        request.HTTPMethod = "PUT"
+//        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
+//        var postString = "{\"itinerary\": {\"home_locale\": \"\(tempHomeLocale)\", \"work_locale\": \"\(tempWorkLocale)\", \"morning_time\": \"\(tempMornTM)\", \"evening_time\": \"\(temPEvenTM)\", \"bio\": \"\(tempBio)\", \"preferences\": \"\(tempPref)\"}"
+//        var postData = postString.dataUsingEncoding(NSUTF8StringEncoding)!
+//        var postLength:NSString = String( postData.length )
+//        request.HTTPBody = postData
+//        request.setValue(postLength as String, forHTTPHeaderField: "Content-Length")
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        request.setValue("\(tempEmail)", forHTTPHeaderField: "email")
+        request.setValue("\(tempMornTM)", forHTTPHeaderField: "morning_time")
+        request.setValue("\(temPEvenTM)", forHTTPHeaderField: "evening_time")
+        request.setValue("\(tempHomeLocale)", forHTTPHeaderField: "home_locale")
+        request.setValue("\(tempWorkLocale)", forHTTPHeaderField: "work_locale")
+        request.setValue("\(tempBio)", forHTTPHeaderField: "bio")
+        request.setValue("\(tempPref)", forHTTPHeaderField: "preferences")
+        request.setValue("basic \(templastName)", forHTTPHeaderField: "last_name")
+
         
         //firing the request
-        //let urlConnection = NSURLConnection(request: request, delegate: self)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             println("error: \(error)")
             var err: NSError

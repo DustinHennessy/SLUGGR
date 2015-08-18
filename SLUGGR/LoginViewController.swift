@@ -114,7 +114,7 @@ class LoginViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func signUpUser(sender: UIBarButtonItem){
         
-        let url = NSURL(string: "http://sluggr-api.herokuapp.com/demo_user/create")
+        let url = NSURL(string: "http://sluggr-api.herokuapp.com/demo_user/create_ios")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
         println("ZZZZZZZZZZZ: \(emailField)")
@@ -122,10 +122,18 @@ class LoginViewController: UIViewController, UITableViewDelegate, UITableViewDat
         println("DDDDDDDD: \(firstNameField)")
         println("EEEEEEEE: \(usernameField)")
         
-        request.setValue("\(emailField)", forHTTPHeaderField: "email")
-        request.setValue("\(passwordField)", forHTTPHeaderField: "password")
-        request.setValue("\(firstNameField)", forHTTPHeaderField: "first_name")
-        request.setValue("\(usernameField)", forHTTPHeaderField: "username")
+        
+//        var postString = "{\"itinerary\": {\"home_locale\": \"\(tempHomeLocale)\", \"work_locale\": \"\(tempWorkLocale)\", \"morning_time\": \"\(tempMornTM)\", \"evening_time\": \"\(temPEvenTM)\", \"bio\": \"\(tempBio)\", \"preferences\": \"\(tempPref)\"}"
+//        var postData = postString.dataUsingEncoding(NSUTF8StringEncoding)!
+//        var postLength:NSString = String( postData.length )
+//        request.HTTPBody = postData
+//        request.setValue(postLength as String, forHTTPHeaderField: "Content-Length")
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        request.setValue("basic \(emailField)", forHTTPHeaderField: "email")
+        request.setValue("basic \(passwordField)", forHTTPHeaderField: "password")
+        request.setValue("basic \(firstNameField)", forHTTPHeaderField: "first_name")
+        request.setValue("basic \(usernameField)", forHTTPHeaderField: "username")
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             println("error: \(error)")
             var err: NSError
@@ -135,6 +143,10 @@ class LoginViewController: UIViewController, UITableViewDelegate, UITableViewDat
         })
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.darkGrayColor()
+    }
     
     
     override func viewDidLoad() {

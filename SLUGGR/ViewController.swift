@@ -56,7 +56,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let usersDictArray = jsonResult.objectForKey("users") as! [NSDictionary]
             for userDict in usersDictArray {
                 let user = Users()
-                user.userFirstName = userDict.objectForKey("first_name") as! String
+                user.userFirstName = userDict.objectForKey("first_name") as? String
                 user.userLastName = userDict.objectForKey("last_name") as? String
                 user.userEmail = userDict.objectForKey("email") as! String
                 user.userBio = userDict.objectForKey("bio") as? String
@@ -179,10 +179,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         let barButton1 = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.Plain, target: self, action: "loginButtonPressed:")
         if !toggleIsOn {
-            barButton2 = UIBarButtonItem(title: "Sort Work", style: UIBarButtonItemStyle.Plain, target: self, action: "calculateDistance:")
+            barButton2 = UIBarButtonItem(image: UIImage(named: "IconSortWork"), style: .Plain, target: self, action: "calculateDistance:")
         } else {
-            barButton2 = UIBarButtonItem(title: "Sort Home", style: UIBarButtonItemStyle.Plain, target: self, action: "calculateDistance:")
+            barButton2 = UIBarButtonItem(image: UIImage(named: "IconSortHome"), style: UIBarButtonItemStyle.Plain, target: self, action: "calculateDistance:")
         }
+        
+//        barButton2.tintColor = UIColor.blackColor()
+//        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.blackColor()
         let barButtonArray = [barButton1, barButton2]
         toggleIsOn = !toggleIsOn
         navigationItem.setRightBarButtonItems(barButtonArray, animated: true)
@@ -414,7 +417,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //MARK: - Table View Methods
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 120
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            return 120
+        case 1:
+            return 90
+        default:
+            return 120
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -434,11 +444,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let currentUser = userArray[indexPath.row]
             cell.nameLabel.text = currentUser.userFirstName
             cell.destinationLabel.text = currentUser.userWorkLocale
-            if let userDist = currentUser.userDistance {
-                cell.departureLabel.text = "\(userDist)"
-            } else {
-                cell.departureLabel.text = currentUser.userHomeLocale
-            }
+            //            if let userDist = currentUser.userDistance {
+            //                cell.departureLabel.text = "\(userDist)"
+            //            } else {
+            cell.departureLabel.text = currentUser.userHomeLocale
+            //            }
             cell.selectionStyle = UITableViewCellSelectionStyle.None
 
             return cell
@@ -475,16 +485,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         annotatingUsers()
         let barButton1 = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.Plain, target: self, action: "loginButtonPressed:")
         if toggleIsOn {
-            barButton2 = UIBarButtonItem(title: "Sort Work", style: UIBarButtonItemStyle.Plain, target: self, action: "calculateDistance:")
+            barButton2 = UIBarButtonItem(image: UIImage(named: "IconSortWork"), style: .Plain, target: self, action: "calculateDistance:")
         } else {
-            barButton2 = UIBarButtonItem(title: "Sort Home", style: UIBarButtonItemStyle.Plain, target: self, action: "calculateDistance:")
+            barButton2 = UIBarButtonItem(image: UIImage(named: "IconSortHome"), style: UIBarButtonItemStyle.Plain, target: self, action: "calculateDistance:")
         }
         barButton2.tintColor = UIColor.darkGrayColor()
         let barButtonArray = [barButton1, barButton2]
         self.navigationItem.rightBarButtonItems = barButtonArray
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.blackColor()
-        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.darkGrayColor()
-//        self.navigationItem.rightBarButtonItem.
+        barButton2.tintColor = UIColor.blackColor()
+        //        self.navigationItem.rightBarButtonItem.
         println("VWA END")
     }
     
