@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>7F044812-39FA-4AC9-83EC-068245CFDCCF</string>
 	<key>IDESourceControlProjectName</key>
-	<string>SLUGGR</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>1BBD7AFB7C16660B3EB11DF8FB4FB347F94A575B</key>
 		<string>https://github.com/DustinHennessy/SLUGGR.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>SLUGGR.xcodeproj</string>
+	<string>SLUGGR.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>1BBD7AFB7C16660B3EB11DF8FB4FB347F94A575B</key>

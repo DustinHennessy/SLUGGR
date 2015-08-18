@@ -217,11 +217,11 @@
                                                     </variation>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WUt-zU-wy7" customClass="BorderedRoundedView" customModule="SLUGGR" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="41" width="34" height="33"/>
+                                                    <rect key="frame" x="8" y="41" width="32" height="33"/>
                                                     <color key="backgroundColor" red="0.16849327780000001" green="0.19947146120000001" blue="0.60181817859999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="33" id="7TE-mB-Wja"/>
-                                                        <constraint firstAttribute="width" constant="34" id="V2C-Dg-8bM"/>
+                                                        <constraint firstAttribute="width" constant="32" id="V2C-Dg-8bM"/>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="37" id="mlh-o3-c4k"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="KohinoorDevanagari-Medium" family="Kohinoor Devanagari" pointSize="24"/>
@@ -229,7 +229,7 @@
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="18"/>
+                                                            <real key="value" value="17"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <variation key="default">
@@ -244,7 +244,7 @@
                                                 <constraint firstItem="WUt-zU-wy7" firstAttribute="top" secondItem="hj4-2R-NpA" secondAttribute="bottom" constant="4" id="GpX-xs-hzC"/>
                                                 <constraint firstItem="iBi-Bn-OL1" firstAttribute="leading" secondItem="2xJ-JX-qNk" secondAttribute="trailing" id="HgR-Oz-RsA"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="iBi-Bn-OL1" secondAttribute="bottom" constant="-8" id="Se2-iD-qXi"/>
-                                                <constraint firstItem="2xJ-JX-qNk" firstAttribute="leading" secondItem="WUt-zU-wy7" secondAttribute="trailing" constant="16" id="ToI-SV-8oI"/>
+                                                <constraint firstItem="2xJ-JX-qNk" firstAttribute="leading" secondItem="WUt-zU-wy7" secondAttribute="trailing" constant="18" id="ToI-SV-8oI"/>
                                                 <constraint firstItem="2xJ-JX-qNk" firstAttribute="leading" secondItem="bYc-8U-Fl7" secondAttribute="leadingMargin" constant="-8" id="UiQ-oS-HZ9"/>
                                                 <constraint firstItem="2xJ-JX-qNk" firstAttribute="top" secondItem="hj4-2R-NpA" secondAttribute="bottom" constant="4" id="Vwd-3C-721"/>
                                                 <constraint firstItem="iCU-mG-81E" firstAttribute="leading" secondItem="iBi-Bn-OL1" secondAttribute="trailing" id="WLu-fC-MFo"/>

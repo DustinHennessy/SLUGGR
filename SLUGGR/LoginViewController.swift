@@ -130,10 +130,10 @@ class LoginViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //        request.setValue(postLength as String, forHTTPHeaderField: "Content-Length")
 //        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        request.setValue("basic \(emailField)", forHTTPHeaderField: "email")
-        request.setValue("basic \(passwordField)", forHTTPHeaderField: "password")
-        request.setValue("basic \(firstNameField)", forHTTPHeaderField: "first_name")
-        request.setValue("basic \(usernameField)", forHTTPHeaderField: "username")
+        request.setValue("\(emailField)", forHTTPHeaderField: "email")
+        request.setValue("\(passwordField)", forHTTPHeaderField: "password")
+        request.setValue("\(firstNameField)", forHTTPHeaderField: "first_name")
+        request.setValue("\(usernameField)", forHTTPHeaderField: "username")
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
             println("error: \(error)")
             var err: NSError

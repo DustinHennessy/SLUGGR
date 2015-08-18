@@ -30,12 +30,16 @@ class MemberDetailViewController: UIViewController, UITableViewDataSource, UITab
             } else {
                 nCell.memberFullNameLabel.text = selectedUser.userFirstName
             }
+            nCell.selectionStyle = UITableViewCellSelectionStyle.None
+
             return nCell
         case 1:
             let eCell :MemberEmailTableViewCell = tableView.dequeueReusableCellWithIdentifier("emailCell") as! MemberEmailTableViewCell
             if selectedUser?.userEmail != nil {
             eCell.emailAddressLabel.text = selectedUser?.userEmail
             }
+            eCell.selectionStyle = UITableViewCellSelectionStyle.None
+
             return eCell
         case 2:
             let tCell :MemberTravelTableViewCell = tableView.dequeueReusableCellWithIdentifier("travelCell") as! MemberTravelTableViewCell
@@ -47,6 +51,8 @@ class MemberDetailViewController: UIViewController, UITableViewDataSource, UITab
             if selectedUser?.userWorkLocale != nil {
             tCell.dynamicDetailDestLabel.text = selectedUser?.userWorkLocale
             }
+            tCell.selectionStyle = UITableViewCellSelectionStyle.None
+
             return tCell
         case 3:
             let bCell :ProfileTextViewTableViewCell = tableView.dequeueReusableCellWithIdentifier("textViewCell") as! ProfileTextViewTableViewCell
@@ -54,11 +60,15 @@ class MemberDetailViewController: UIViewController, UITableViewDataSource, UITab
             if selectedUser?.userBio != nil {
             bCell.dynamicTextView.text = selectedUser?.userBio
             }
+            bCell.selectionStyle = UITableViewCellSelectionStyle.None
+
             return bCell
         case 4:
             let pCell :ProfileTextViewTableViewCell = tableView.dequeueReusableCellWithIdentifier("textViewCell") as! ProfileTextViewTableViewCell
             pCell.dynamicTVCLabel.text = "Preferences:"
             pCell.dynamicTextView.text = selectedUser?.userPreferences
+            pCell.selectionStyle = UITableViewCellSelectionStyle.None
+
             return pCell
         default:
             var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! UITableViewCell

@@ -235,10 +235,10 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
         let tempMornTM = "4/2/22"
         let temPEvenTM = "9:00am"
         let tempHomeLocale = "7842 Royal Sydney Dr. Gainesville, VA 20155"
-        let tempWorkLocale = "Washington DC"
+        var tempWorkLocale = "Washington DC"
         let tempBio = "This is my bio"
         let tempPref = "I prefer fancy stuff"
-        let templastName = "Butt" as String
+        let templastName = "guy"
         
 //        let jsonString = "json=[{\"itinerary\":{\"morning_time\":\"\(tempMornTM)\"}}]"
 //        request.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
