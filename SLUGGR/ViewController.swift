@@ -28,6 +28,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet var segmentedControl :UISegmentedControl!
     var tappedAnnot :CLLocation?
     var toggleIsOn = true
+    var barButton2 :UIBarButtonItem!
     
 
     
@@ -175,9 +176,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let location = CLLocation(latitude: latitude, longitude: longitude)
                 user.userDistance = userLoc.distanceFromLocation(location)
             }
-            
         }
+        let barButton1 = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.Plain, target: self, action: "loginButtonPressed:")
+        if !toggleIsOn {
+            barButton2 = UIBarButtonItem(title: "Sort Work", style: UIBarButtonItemStyle.Plain, target: self, action: "calculateDistance:")
+        } else {
+            barButton2 = UIBarButtonItem(title: "Sort Home", style: UIBarButtonItemStyle.Plain, target: self, action: "calculateDistance:")
+        }
+        let barButtonArray = [barButton1, barButton2]
         toggleIsOn = !toggleIsOn
+        navigationItem.setRightBarButtonItems(barButtonArray, animated: true)
         userArray.sort { $0.userDistance < $1.userDistance }
         userTableView.reloadData()
         println("USER LOCATION = \(userLoc)")
@@ -406,7 +414,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //MARK: - Table View Methods
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 150
+        return 120
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -439,7 +447,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let groupCell :GroupTableViewCell = tableView.dequeueReusableCellWithIdentifier("GroupCell") as! GroupTableViewCell
             let currentUser = groupArray[indexPath.row]
             groupCell.groupMemberNameLabel.text = currentUser.userFirstName
+            groupCell.departureLabel.text = currentUser.userHomeLocale
+            groupCell.destinationLabel.text = currentUser.userWorkLocale
             groupCell.selectionStyle = UITableViewCellSelectionStyle.None
+            if currentUser.driverStatus == true {
+            groupCell.driverLabel.text = "D"
+            } else {
+                groupCell.driverLabel.text = "R"
+            }
             
             return groupCell
         }
@@ -459,10 +474,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         prepareLocationMonitoring()
         annotatingUsers()
         let barButton1 = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.Plain, target: self, action: "loginButtonPressed:")
-        let barButton2 = UIBarButtonItem(title: "Sort Users", style: UIBarButtonItemStyle.Plain, target: self, action: "calculateDistance:")
-        
+        if toggleIsOn {
+            barButton2 = UIBarButtonItem(title: "Sort Work", style: UIBarButtonItemStyle.Plain, target: self, action: "calculateDistance:")
+        } else {
+            barButton2 = UIBarButtonItem(title: "Sort Home", style: UIBarButtonItemStyle.Plain, target: self, action: "calculateDistance:")
+        }
+        barButton2.tintColor = UIColor.darkGrayColor()
         let barButtonArray = [barButton1, barButton2]
         self.navigationItem.rightBarButtonItems = barButtonArray
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.blackColor()
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.darkGrayColor()
+//        self.navigationItem.rightBarButtonItem.
         println("VWA END")
     }
     

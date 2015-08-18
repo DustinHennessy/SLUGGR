@@ -9,11 +9,13 @@
 import UIKit
 
 class EditProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
 
     @IBOutlet var profileTableView :UITableView!
     var dynamicLabelArray = ["First Name", "Last Name", "Home Address", "Work Address", "Morning Depart Time", "Evening Depart Time", "Driver Status","Bio", "Preferences", "Your Map"]
     var dataFieldTypeArray = ["TextFieldCell", "TextFieldCell", "TextFieldCell", "TextFieldCell", "LabelCell", "LabelCell", "SwitchCell","TextViewCell", "TextViewCell", "MapCell"]
     var tapped = false
+    let userManager = CurrentUserManager.sharedInstance
     var homeAddress :NSString!
     var workAddress :NSString!
     var dateValue :String!
@@ -78,6 +80,7 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
             if sCell.dynamicTFCLabel.text == "Home Address" {
                 if sCell.dynamicProfileTextField != nil {
                     homeAddress = sCell.dynamicProfileTextField.text
+                    println("\(homeAddress)")
                 }
             }
             if sCell.dynamicTFCLabel.text == "Work Address" {
@@ -110,8 +113,7 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
             }
         }
     }
-    
-    
+
     
     
 //        switch indexPath!.row {
@@ -148,26 +150,51 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
         case "TextFieldCell":
             var textFieldCell = tableView.dequeueReusableCellWithIdentifier(currentCellType) as! ProfileTextFieldTableViewCell
             textFieldCell.dynamicTFCLabel.text = dynamicLabelArray[indexPath.row]
-            textFieldCell.dynamicProfileTextField.addTarget(self, action: "tableFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
-            textFieldCell.selectionStyle = UITableViewCellSelectionStyle.None
+            if textFieldCell.dynamicTFCLabel.text == "First Name" {
+                textFieldCell.dynamicProfileTextField.text = userManager.currentUser?.userFirstName
+            } else if textFieldCell.dynamicTFCLabel.text == "Last Name" {
+                textFieldCell.dynamicProfileTextField.text = userManager.currentUser?.userLastName
+            } else if textFieldCell.dynamicTFCLabel.text == "Home Address" {
+                textFieldCell.dynamicProfileTextField.text = userManager.currentUser?.userHomeLocale
+            } else if textFieldCell.dynamicTFCLabel.text == "Work Address" {
+                textFieldCell.dynamicProfileTextField.text = userManager.currentUser?.userWorkLocale
+            } else {
+                textFieldCell.dynamicProfileTextField.addTarget(self, action: "tableFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
+                textFieldCell.selectionStyle = UITableViewCellSelectionStyle.None
+            }
             return textFieldCell
         case "LabelCell":
             var labelCell = tableView.dequeueReusableCellWithIdentifier(currentCellType) as! ProfileLabelTableViewCell
             labelCell.dynamicLCLabel.text = dynamicLabelArray[indexPath.row]
+            if labelCell.dynamicLCLabel.text == "Morning Depart Time" {
+                labelCell.dynamicLCDetailLabel.text = userManager.currentUser?.userMorningTime
+            } else if labelCell.dynamicLCLabel.text == "Evening Depart Time" {
+                labelCell.dynamicLCDetailLabel.text = userManager.currentUser?.userEveningTime
+            } else {
             labelCell.dynamicLCDetailLabel.text = formatDate(NSDate())
             labelCell.selectionStyle = UITableViewCellSelectionStyle.None
+            }
             return labelCell
         case "SwitchCell":
             var switchCell = tableView.dequeueReusableCellWithIdentifier(currentCellType) as! ProfileSwitchTableViewCell
             switchCell.dynamicSCLabel.text = dynamicLabelArray[indexPath.row]
+            if userManager.currentUser?.driverStatus == true {
+                switchCell.cellSwitch.setOn(true, animated: false)
+            } else {
             switchCell.cellSwitch.addTarget(self, action: "tableFieldChanged:", forControlEvents: UIControlEvents.ValueChanged)
             switchCell.selectionStyle = UITableViewCellSelectionStyle.None
+            }
             return switchCell
         case "TextViewCell":
             var textViewCell = tableView.dequeueReusableCellWithIdentifier(currentCellType) as! ProfileTextViewTableViewCell
             textViewCell.dynamicTVCLabel.text = dynamicLabelArray[indexPath.row]
-            //textViewCell.dynamicTextView. the TEXT VIEW ISNT READY YET!
+            if textViewCell.dynamicTVCLabel.text == "Bio" {
+                textViewCell.dynamicTextView.text = userManager.currentUser?.userBio
+            } else if textViewCell.dynamicTVCLabel.text == "Preferences" {
+                textViewCell.dynamicTextView.text = userManager.currentUser?.userPreferences
+            } else {
             textViewCell.selectionStyle = UITableViewCellSelectionStyle.None
+            }
             return textViewCell
         case "MapCell":
             var mapViewCell = tableView.dequeueReusableCellWithIdentifier(currentCellType) as! ProfileMapTableViewCell
@@ -191,39 +218,55 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     
-//    //MARK: - Data to API
-// 
-//    func saveDataToAPI(sender: UIBarButtonItem) {
-//        println("GDFA Start")
-//        
-//        //creating the request
-//        let url = NSURL(string: "http://sluggr-api.herokuapp.com/demo_user/edit")
-//        let request = NSMutableURLRequest(URL: url!)
-//        request.HTTPMethod = "PUT"
-//        let tempEmail = "a@b.com"
-//        //request.setValue("basic \(", forHTTPHeaderField: "home_locale") HOME LOCALE
-//        
-//        request.setValue("basic \(tempEmail)", forHTTPHeaderField: "email")
-//        
-//        //firing the request
-//        //let urlConnection = NSURLConnection(request: request, delegate: self)
-//        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-//            println("error: \(error)")
-//            var err: NSError
-//            var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+    //MARK: - Data to API
+    
+    @IBAction func saveDataToAPI(sender: UIBarButtonItem) {
+        println("SDTA Start")
+        var date = NSDate()
+        var dateFormatter :NSDateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        dateFormatter.stringFromDate(date)
+        
+        //creating the request
+        let url = NSURL(string: "http://sluggr-api.herokuapp.com/demo_user/edit")
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "PUT"
+        let tempEmail = "a@b.com"
+        var tempMornTM = date
+        var temPEvenTM = date
+        let tempHomeLocale = "Centreville, VA"
+        let tempWorkLocale = "Washington, D.C."
+        let tempBio = "This is my bio"
+        
+        //request.setValue("basic \(", forHTTPHeaderField: "home_locale") HOME LOCALE
+        println("\(tempMornTM)")
+        request.setValue("basic \(tempEmail)", forHTTPHeaderField: "email")
+        request.setValue("basic \(tempMornTM)", forHTTPHeaderField: "morning_time")
+        request.setValue("basic \(temPEvenTM)", forHTTPHeaderField: "evening_time")
+        request.setValue("basic \(tempHomeLocale)", forHTTPHeaderField: "home_locale")
+        request.setValue("basic \(tempWorkLocale)", forHTTPHeaderField: "work_locale")
+        request.setValue("basic \(tempBio)", forHTTPHeaderField: "bio")
+        
+        
+        //firing the request
+        //let urlConnection = NSURLConnection(request: request, delegate: self)
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+            println("error: \(error)")
+            var err: NSError
+            var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
 //            let usersDictArray = jsonResult.objectForKey("users") as! [NSDictionary]
 //            for userDict in usersDictArray {
 //                let user = Users()
-//              
-//                
-//            }
-//        })
-//        println("GDFA End")
-//        
-//    }
-//
-//        
-//    }
+            
+            println("\(jsonResult)")
+        })
+        
+        println("SDTA End")
+        
+    }
+
+        
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

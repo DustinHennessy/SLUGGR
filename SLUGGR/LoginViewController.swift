@@ -86,12 +86,20 @@ class LoginViewController: UIViewController, UITableViewDelegate, UITableViewDat
             var err: NSError?
             var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as! NSDictionary
             var userDict = jsonResult.objectForKey("user") as! NSDictionary
+            var userDict2 = jsonResult.objectForKey("itinerary") as! NSDictionary
             var currentUser = Users()
             currentUser.userFirstName = userDict.objectForKey("first_name") as! String
             currentUser.userEmail = userDict.objectForKey("email") as! String
             currentUser.userID = userDict.objectForKey("id") as? Int
             currentUser.username = userDict.objectForKey("username") as! String
-            
+            currentUser.userPreferences = userDict.objectForKey("preferences") as? String
+            currentUser.userBio = userDict.objectForKey("bio") as? String
+            //Using UserDict2 here because the api returns a dictionary with two seperate dictionaries of results.
+            currentUser.userHomeLocale = userDict2.objectForKey("home_locale") as? String
+            currentUser.userWorkLocale = userDict2.objectForKey("work_locale") as? String
+            currentUser.userMorningTime = userDict2.objectForKey("morning_time") as? String
+            currentUser.userEveningTime = userDict2.objectForKey("evening_time") as? String
+        
             self.userManager.currentUser = currentUser
             println("\(jsonResult)")
             
@@ -132,6 +140,7 @@ class LoginViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         println("VDL")
+        
         // Do any additional setup after loading the view.
     }
 

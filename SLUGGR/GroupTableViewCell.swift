@@ -12,6 +12,10 @@ class GroupTableViewCell: UITableViewCell {
 
     
     @IBOutlet var groupMemberNameLabel :UILabel!
+    @IBOutlet var departureLabel :UILabel!
+    @IBOutlet var destinationLabel :UILabel!
+    @IBOutlet var driverLabel :UILabel!
+
     
     override func awakeFromNib() {
         super.awakeFromNib()

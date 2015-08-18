@@ -25,8 +25,10 @@ class MemberDetailViewController: UIViewController, UITableViewDataSource, UITab
         switch indexPath.row {
         case 0:
             let nCell :MemberNameTableViewCell = tableView.dequeueReusableCellWithIdentifier("nameCell") as! MemberNameTableViewCell
-            if selectedUser?.userFirstName != nil {
-            nCell.memberFullNameLabel.text = selectedUser?.userFirstName
+            if selectedUser?.userLastName != nil {
+                nCell.memberFullNameLabel.text = selectedUser.userFirstName + "" + selectedUser.userLastName
+            } else {
+                nCell.memberFullNameLabel.text = selectedUser.userFirstName
             }
             return nCell
         case 1:
@@ -85,6 +87,7 @@ class MemberDetailViewController: UIViewController, UITableViewDataSource, UITab
         super.viewWillAppear(true)
         println("**** Got \(selectedUser.userEmail)")
         memberDetailTableView.reloadData()
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
