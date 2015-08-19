@@ -293,7 +293,7 @@
                                 </connections>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fUr-T1-vVT">
-                                <rect key="frame" x="0.0" y="392" width="598" height="29"/>
+                                <rect key="frame" x="0.0" y="393" width="600" height="29"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="8NS-0k-ntJ"/>
@@ -313,10 +313,10 @@
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="2EN-GE-UCg" secondAttribute="bottom" id="3WY-CF-5dw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2EN-GE-UCg" secondAttribute="trailing" constant="-16" id="AUQ-Od-ANW"/>
                             <constraint firstItem="2EN-GE-UCg" firstAttribute="top" secondItem="fUr-T1-vVT" secondAttribute="bottom" id="Ahr-aV-77H"/>
-                            <constraint firstItem="2EN-GE-UCg" firstAttribute="top" secondItem="fUr-T1-vVT" secondAttribute="bottom" id="Hgb-VN-ypk"/>
+                            <constraint firstItem="2EN-GE-UCg" firstAttribute="top" secondItem="fUr-T1-vVT" secondAttribute="bottom" constant="-1" id="Hgb-VN-ypk"/>
                             <constraint firstItem="2EN-GE-UCg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="KQX-CM-GXk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="N4G-mD-Z6I" secondAttribute="trailing" constant="-16" id="LVS-VR-oeO"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="fUr-T1-vVT" secondAttribute="trailing" constant="-14" id="Rjm-GW-LL6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fUr-T1-vVT" secondAttribute="trailing" constant="-16" id="Rjm-GW-LL6"/>
                             <constraint firstItem="2EN-GE-UCg" firstAttribute="top" secondItem="N4G-mD-Z6I" secondAttribute="bottom" id="Zg6-qx-xMG"/>
                             <constraint firstItem="N4G-mD-Z6I" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-64" id="dPl-Y9-bpf"/>
                             <constraint firstItem="fUr-T1-vVT" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="eUi-4I-Lju"/>
@@ -345,6 +345,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editProfileButton" destination="5VV-ah-mlf" id="Hqo-0S-3Wm"/>
                         <outlet property="mapView" destination="N4G-mD-Z6I" id="dD9-dr-gpy"/>
                         <outlet property="segmentedControl" destination="fUr-T1-vVT" id="lFn-3u-mpG"/>
                         <outlet property="userTableView" destination="2EN-GE-UCg" id="kxd-RB-UGT"/>
@@ -553,29 +554,30 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ALt-6d-j0M" id="Sl6-rd-smk">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Bio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iw2-Wz-wW1">
-                                                    <rect key="frame" x="8" y="8" width="26" height="27"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iw2-Wz-wW1">
+                                                    <rect key="frame" x="8" y="8" width="108" height="27"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="108" id="ChA-47-Jcr"/>
                                                         <constraint firstAttribute="height" constant="27" id="GNB-nT-HrT"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="KohinoorDevanagari-Book" family="Kohinoor Devanagari" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E7e-2a-cOh">
-                                                    <rect key="frame" x="124" y="10" width="468" height="94"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E7e-2a-cOh">
+                                                    <rect key="frame" x="124" y="8" width="468" height="94"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="KohinoorDevanagari-Book" family="Kohinoor Devanagari" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="E7e-2a-cOh" firstAttribute="bottom" secondItem="Sl6-rd-smk" secondAttribute="bottomMargin" constant="-1" id="1mH-U0-cXz"/>
+                                                <constraint firstItem="E7e-2a-cOh" firstAttribute="bottom" secondItem="Sl6-rd-smk" secondAttribute="bottomMargin" constant="-3" id="1mH-U0-cXz"/>
                                                 <constraint firstItem="iw2-Wz-wW1" firstAttribute="leading" secondItem="Sl6-rd-smk" secondAttribute="leadingMargin" id="3o3-m8-JH0"/>
-                                                <constraint firstItem="E7e-2a-cOh" firstAttribute="top" secondItem="Sl6-rd-smk" secondAttribute="topMargin" constant="2" id="A39-ot-ao1"/>
+                                                <constraint firstItem="E7e-2a-cOh" firstAttribute="top" secondItem="Sl6-rd-smk" secondAttribute="topMargin" id="A39-ot-ao1"/>
                                                 <constraint firstItem="E7e-2a-cOh" firstAttribute="trailing" secondItem="Sl6-rd-smk" secondAttribute="trailingMargin" id="P9k-0w-DYN"/>
                                                 <constraint firstItem="iw2-Wz-wW1" firstAttribute="top" secondItem="Sl6-rd-smk" secondAttribute="topMargin" id="mrk-WY-Flg"/>
-                                                <constraint firstItem="E7e-2a-cOh" firstAttribute="leading" secondItem="iw2-Wz-wW1" secondAttribute="trailing" constant="90" id="y5J-PV-PmF"/>
+                                                <constraint firstItem="E7e-2a-cOh" firstAttribute="leading" secondItem="iw2-Wz-wW1" secondAttribute="trailing" constant="8" id="y5J-PV-PmF"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

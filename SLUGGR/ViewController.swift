@@ -29,6 +29,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var tappedAnnot :CLLocation?
     var toggleIsOn = true
     var barButton2 :UIBarButtonItem!
+    var groupRequestCalled = false
+    @IBOutlet var editProfileButton :UIBarButtonItem!
     
 
     
@@ -226,10 +228,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
                 //            let usersDictArray = jsonResult.objectForKey("users") as! [NSDictionary]
                 //            for userDict in usersDictArray {
-                //                
+                //
                 //            }
                 println("\(jsonResult)")
                 
+                let alertController = UIAlertController(title: "Huzzah!", message: "Your invite has been sent!", preferredStyle: .Alert)
+                let OKAction = UIAlertAction(title: "Ok", style: .Default) { (action) in
+                    println(action)
+                }
+                alertController.addAction(OKAction)
+                
+                self.presentViewController(alertController, animated: true) {
+                    //
+                }
             })
         }
     }
@@ -239,55 +250,54 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func segmentedControlPressed(sender: UISegmentedControl) {
         if userManager.currentUser?.userEmail != nil {
-            if sender.selectedSegmentIndex == 1 {
-                let url = NSURL(string: "http://sluggr-api.herokuapp.com/group")
-                let request = NSMutableURLRequest(URL: url!)
-                request.HTTPMethod = "GET"
-                request.setValue("basic \(userManager.currentUser?.userEmail)", forHTTPHeaderField: "email")
-                
-                //firing the request
-                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-                    println("error: \(error)")
-                    println("response: \(response)")
-                    let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)
-                    println("data:\(dataString)")
-                    
-                    var err: NSError
-                    var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
-                    let groupDictArray = jsonResult.objectForKey("group") as! [NSDictionary]
-                    for groupDict in groupDictArray {
-                        let user = Users()
-                        if let groupMemberName = groupDict.objectForKey("first_name") as? String {
-                            println("Member name::::\(groupMemberName)")
-                            user.userFirstName = groupMemberName
-                            //                    groupDict.objectForKey("first_name") as! String
+            if groupRequestCalled == false {
+                if sender.selectedSegmentIndex == 1 {
+                    let url = NSURL(string: "http://sluggr-api.herokuapp.com/group")
+                    let request = NSMutableURLRequest(URL: url!)
+                    request.HTTPMethod = "GET"
+                    request.setValue("basic \(userManager.currentUser?.userEmail)", forHTTPHeaderField: "email")
+                    //firing the request
+                    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+                        println("error: \(error)")
+                        println("response: \(response)")
+                        let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)
+                        println("data:\(dataString)")
+                        var err: NSError
+                        var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+                        let groupDictArray = jsonResult.objectForKey("group") as! [NSDictionary]
+                        for groupDict in groupDictArray {
+                            let user = Users()
+                            if let groupMemberName = groupDict.objectForKey("first_name") as? String {
+                                println("Member name::::\(groupMemberName)")
+                                user.userFirstName = groupMemberName
+                                //                    groupDict.objectForKey("first_name") as! String
+                            }
+                            if let memberLastName = groupDict.objectForKey("last_name") as? String {
+                                user.userLastName = memberLastName
+                                //                        groupDict.objectForKey("last_name") as? String
+                            }
+                            user.userHomeLocale = groupDict.objectForKey("home_locale") as? String
+                            user.userWorkLocale = groupDict.objectForKey("work_locale") as? String
+                            user.userEmail = groupDict.objectForKey("email") as! String
+                            user.userBio = groupDict.objectForKey("bio") as? String
+                            user.userPreferences = groupDict.objectForKey("preferences") as? String
+                            user.userMorningTime = groupDict.objectForKey("morning_time") as? String
+                            user.userEveningTime = groupDict.objectForKey("evening_time") as? String
+                            if groupDict.objectForKey("driver") as? Int == 1 {
+                                user.driverStatus = true
+                            } else {
+                                user.driverStatus = false
+                            }
+                            self.groupArray.append(user)
+                            self.groupRequestCalled = true
                         }
-                        if let memberLastName = groupDict.objectForKey("last_name") as? String {
-                            user.userLastName = memberLastName
-                            //                        groupDict.objectForKey("last_name") as? String
-                        }
-                        user.userHomeLocale = groupDict.objectForKey("home_locale") as? String
-                        user.userWorkLocale = groupDict.objectForKey("work_locale") as? String
-                        user.userEmail = groupDict.objectForKey("email") as! String
-                        user.userBio = groupDict.objectForKey("bio") as? String
-                        user.userPreferences = groupDict.objectForKey("preferences") as? String
-                        user.userMorningTime = groupDict.objectForKey("morning_time") as? String
-                        user.userEveningTime = groupDict.objectForKey("evening_time") as? String
-                        if groupDict.objectForKey("driver") as? Int == 1 {
-                            user.driverStatus = true
-                        } else {
-                            user.driverStatus = false
-                        }
-                        
-                        self.groupArray.append(user)
-                    }
-                    
-                    println("\(jsonResult)")
-                    self.userTableView.reloadData()
-                })
+                        println("\(jsonResult)")
+                        self.userTableView.reloadData()
+                    })
+                }
             }
             self.userTableView.reloadData()
-
+            
         }
         
     }
@@ -501,6 +511,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         //        self.navigationItem.rightBarButtonItem.
         println("VWA END")
         println("**** THC Current User *** \(userManager.currentUser)")
+        if userManager.currentUser?.userEmail == nil {
+            editProfileButton!.enabled = false
+        } else {
+            editProfileButton!.enabled = true
+        }
     }
     
     override func didReceiveMemoryWarning() {

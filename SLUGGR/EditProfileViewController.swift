@@ -289,15 +289,6 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
         let url = NSURL(string: "http://sluggr-api.herokuapp.com/demo_user/edit_ios")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
-//        let tempEmail = "a@b.com"
-//        let tempMornTM = "4/2/22"
-//        let temPEvenTM = "9:00am"
-//        let tempHomeLocale = "7842 Royal Sydney Dr. Gainesville, VA 20155"
-//        var tempWorkLocale = "Washington DC"
-//        let tempBio = "This is my bio"
-//        let tempPref = "I prefer fancy stuff"
-//        let templastName = "guy"
-
         
         println("\(userManager.currentUser!.userEmail)")
         println("\(userFirstName)")
@@ -330,6 +321,21 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
                 
                 println("\(jsonResult)")
             })
+        } else {
+            let alertController = UIAlertController(title: "First name missing", message: "You need to include a first name before you can continue.", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+                println(action)
+            }
+            alertController.addAction(cancelAction)
+            
+            let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in
+                println(action)
+            }
+            alertController.addAction(OKAction)
+            
+            self.presentViewController(alertController, animated: true) {
+                // ...
+            }
         }
         println("SDTA End")
         
@@ -337,7 +343,6 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
 
         
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         profileTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
