@@ -28,6 +28,7 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
     var userInputBio = ""
     var userInputPref = ""
     
+    
     //#2 geocode the home and work locations so we can annotate on the profileMapView
     
     //MARK: - Table Views
@@ -188,20 +189,24 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
         switch currentCellType {
         case "TextFieldCell":
             println("**** THC Current User @ TFC *** \(userManager.currentUser) \(userManager.currentUser?.userLastName)  \(userManager.currentUser?.userBio)")
-
+            
             var textFieldCell = tableView.dequeueReusableCellWithIdentifier(currentCellType) as! ProfileTextFieldTableViewCell
             textFieldCell.dynamicTFCLabel.text = dynamicLabelArray[indexPath.row]
             if textFieldCell.dynamicTFCLabel.text == "First Name" {
                 if userManager.currentUser?.userFirstName != nil {
                     textFieldCell.dynamicProfileTextField.text = userManager.currentUser?.userFirstName
+                    userFirstName = textFieldCell.dynamicProfileTextField.text
                 }
                 
             } else if textFieldCell.dynamicTFCLabel.text == "Last Name" {
                 textFieldCell.dynamicProfileTextField.text = userManager.currentUser?.userLastName
+                userLastName = textFieldCell.dynamicProfileTextField.text
             } else if textFieldCell.dynamicTFCLabel.text == "Home Address" {
                 textFieldCell.dynamicProfileTextField.text = userManager.currentUser?.userHomeLocale
+                homeAddress = textFieldCell.dynamicProfileTextField.text
             } else if textFieldCell.dynamicTFCLabel.text == "Work Address" {
                 textFieldCell.dynamicProfileTextField.text = userManager.currentUser?.userWorkLocale
+                workAddress = textFieldCell.dynamicProfileTextField.text
             }
             textFieldCell.selectionStyle = UITableViewCellSelectionStyle.None
             textFieldCell.dynamicProfileTextField.addTarget(self, action: "tableFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
@@ -246,7 +251,7 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
             var mapViewCell = tableView.dequeueReusableCellWithIdentifier(currentCellType) as! ProfileMapTableViewCell
             //mapViewCell.profileMapView.addAnnotations(<#annotations: [AnyObject]!#>) add home and work annotations
             mapViewCell.selectionStyle = UITableViewCellSelectionStyle.None
-
+            
             return mapViewCell
         case "DateCell":
             var dateViewCell = tableView.dequeueReusableCellWithIdentifier(currentCellType) as! ProfileDateTableViewCell
@@ -254,7 +259,7 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
             // SET DATE HERE
             dateViewCell.cellDatePicker.addTarget(self, action: "tableFieldChanged:", forControlEvents: UIControlEvents.ValueChanged)
             dateViewCell.selectionStyle = UITableViewCellSelectionStyle.None
-
+            
             return dateViewCell
         default:
             var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! UITableViewCell
@@ -312,17 +317,20 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
 
         
         //firing the request
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-            println("error: \(error)")
-            var err: NSError
-            var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
-//            let usersDictArray = jsonResult.objectForKey("users") as! [NSDictionary]
-//            for userDict in usersDictArray {
-//                let user = Users()
-            
-            println("\(jsonResult)")
-        })
-        
+        if count(userFirstName) != 0 {
+            println("$$$$$$$$$$$$$$$$$Validation test passed!!")
+
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+                println("error: \(error)")
+                var err: NSError
+                var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+                //            let usersDictArray = jsonResult.objectForKey("users") as! [NSDictionary]
+                //            for userDict in usersDictArray {
+                //                let user = Users()
+                
+                println("\(jsonResult)")
+            })
+        }
         println("SDTA End")
         
     }

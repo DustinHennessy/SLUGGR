@@ -93,7 +93,9 @@ class LoginViewController: UIViewController, UITableViewDelegate, UITableViewDat
             if userDict.objectForKey("first_name") != nil {
                 currentUser.userFirstName = userDict.objectForKey("first_name") as! String
             }
-            currentUser.userLastName = userDict.objectForKey("last_name") as! String
+            if userDict.objectForKey("last_name") != nil {
+            currentUser.userLastName = userDict.objectForKey("last_name") as? String
+            }
             currentUser.userEmail = userDict.objectForKey("email") as! String
             currentUser.userID = userDict.objectForKey("id") as? Int
             currentUser.username = userDict.objectForKey("username") as? String

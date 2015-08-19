@@ -26,7 +26,7 @@ class MemberDetailViewController: UIViewController, UITableViewDataSource, UITab
         case 0:
             let nCell :MemberNameTableViewCell = tableView.dequeueReusableCellWithIdentifier("nameCell") as! MemberNameTableViewCell
             if selectedUser?.userLastName != nil {
-                nCell.memberFullNameLabel.text = selectedUser.userFirstName! + "" + selectedUser.userLastName!
+                nCell.memberFullNameLabel.text = selectedUser.userFirstName! + " " + selectedUser.userLastName!
             } else {
                 nCell.memberFullNameLabel.text = selectedUser.userFirstName
             }
