@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class EditProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
     
 
     @IBOutlet var profileTableView :UITableView!
@@ -16,12 +16,17 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
     var dataFieldTypeArray = ["TextFieldCell", "TextFieldCell", "TextFieldCell", "TextFieldCell", "LabelCell", "LabelCell", "SwitchCell","TextViewCell", "TextViewCell", "MapCell"]
     var tapped = false
     let userManager = CurrentUserManager.sharedInstance
-    var homeAddress :NSString!
-    var workAddress :NSString!
+    var homeAddress = ""
+    var workAddress = ""
     var dateValue :String!
     var mornDeptTime :String!
     var mDeptTime :String!
     var driverStatus :String!
+    var userFirstName = ""
+    var userLastName = ""
+    var userEmail :String!
+    var userInputBio = ""
+    var userInputPref = ""
     
     //#2 geocode the home and work locations so we can annotate on the profileMapView
     
@@ -69,6 +74,24 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
+    func textViewDidChange(textView: UITextView) {
+        println("TVC")
+        let dataFieldPosition = textView.convertPoint(CGPointZero, toView: profileTableView)
+        var indexPath = profileTableView.indexPathForRowAtPoint(dataFieldPosition)
+        println("X:\(dataFieldPosition.x) Y:\(dataFieldPosition.y) Row:\(indexPath!.row)")
+        var cell = profileTableView.cellForRowAtIndexPath(indexPath!)
+        if cell is ProfileTextViewTableViewCell {
+            let sCell = profileTableView.cellForRowAtIndexPath(indexPath!) as! ProfileTextViewTableViewCell
+            if sCell.dynamicTVCLabel.text == "Bio" {
+                userInputBio = sCell.dynamicTextView.text
+                println("\(userInputBio)")
+            } else if sCell.dynamicTVCLabel.text == "Preferences" {
+                userInputPref = sCell.dynamicTextView.text
+                println("\(userInputPref)")
+            }
+        }
+    }
+    
     func tableFieldChanged(sender: AnyObject) {
         println("TFC")
         let dataFieldPosition = sender.convertPoint(CGPointZero, toView: profileTableView)
@@ -87,6 +110,22 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
                 if sCell.dynamicProfileTextField != nil {
                     workAddress = sCell.dynamicProfileTextField.text
                 }
+            }
+            if sCell.dynamicTFCLabel.text == "First Name" {
+                userFirstName = sCell.dynamicProfileTextField.text
+            }
+            if sCell.dynamicTFCLabel.text == "Last Name" {
+                userLastName = sCell.dynamicProfileTextField.text
+            }
+        }
+        if cell is ProfileTextViewTableViewCell {
+            let tvCell = profileTableView.cellForRowAtIndexPath(indexPath!) as! ProfileTextViewTableViewCell
+            if tvCell.dynamicTVCLabel.text == "Bio" {
+                userInputBio = tvCell.dynamicTextView.text
+                println("Setting BIO FIELD :)")
+            }
+            if tvCell.dynamicTVCLabel.text == "Preferences" {
+                userInputPref = tvCell.dynamicTextView.text
             }
         }
         //        if cell is ProfileLabelTableViewCell {
@@ -148,20 +187,24 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
         let currentCellType = dataFieldTypeArray[indexPath.row];
         switch currentCellType {
         case "TextFieldCell":
+            println("**** THC Current User @ TFC *** \(userManager.currentUser) \(userManager.currentUser?.userLastName)  \(userManager.currentUser?.userBio)")
+
             var textFieldCell = tableView.dequeueReusableCellWithIdentifier(currentCellType) as! ProfileTextFieldTableViewCell
             textFieldCell.dynamicTFCLabel.text = dynamicLabelArray[indexPath.row]
             if textFieldCell.dynamicTFCLabel.text == "First Name" {
-                textFieldCell.dynamicProfileTextField.text = userManager.currentUser?.userFirstName
+                if userManager.currentUser?.userFirstName != nil {
+                    textFieldCell.dynamicProfileTextField.text = userManager.currentUser?.userFirstName
+                }
+                
             } else if textFieldCell.dynamicTFCLabel.text == "Last Name" {
                 textFieldCell.dynamicProfileTextField.text = userManager.currentUser?.userLastName
             } else if textFieldCell.dynamicTFCLabel.text == "Home Address" {
                 textFieldCell.dynamicProfileTextField.text = userManager.currentUser?.userHomeLocale
             } else if textFieldCell.dynamicTFCLabel.text == "Work Address" {
                 textFieldCell.dynamicProfileTextField.text = userManager.currentUser?.userWorkLocale
-            } else {
-                textFieldCell.dynamicProfileTextField.addTarget(self, action: "tableFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
-                textFieldCell.selectionStyle = UITableViewCellSelectionStyle.None
             }
+            textFieldCell.selectionStyle = UITableViewCellSelectionStyle.None
+            textFieldCell.dynamicProfileTextField.addTarget(self, action: "tableFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
             return textFieldCell
         case "LabelCell":
             var labelCell = tableView.dequeueReusableCellWithIdentifier(currentCellType) as! ProfileLabelTableViewCell
@@ -171,9 +214,9 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
             } else if labelCell.dynamicLCLabel.text == "Evening Depart Time" {
                 labelCell.dynamicLCDetailLabel.text = userManager.currentUser?.userEveningTime
             } else {
-            labelCell.dynamicLCDetailLabel.text = formatDate(NSDate())
-            labelCell.selectionStyle = UITableViewCellSelectionStyle.None
+                labelCell.dynamicLCDetailLabel.text = formatDate(NSDate())
             }
+            labelCell.selectionStyle = UITableViewCellSelectionStyle.None
             return labelCell
         case "SwitchCell":
             var switchCell = tableView.dequeueReusableCellWithIdentifier(currentCellType) as! ProfileSwitchTableViewCell
@@ -181,20 +224,23 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
             if userManager.currentUser?.driverStatus == true {
                 switchCell.cellSwitch.setOn(true, animated: false)
             } else {
-            switchCell.cellSwitch.addTarget(self, action: "tableFieldChanged:", forControlEvents: UIControlEvents.ValueChanged)
-            switchCell.selectionStyle = UITableViewCellSelectionStyle.None
+                switchCell.cellSwitch.addTarget(self, action: "tableFieldChanged:", forControlEvents: UIControlEvents.ValueChanged)
             }
+            switchCell.selectionStyle = UITableViewCellSelectionStyle.None
             return switchCell
         case "TextViewCell":
+            println("**** THC Current User @ TVC *** \(userManager.currentUser) \(userManager.currentUser?.userLastName) \(userManager.currentUser?.userBio)")
             var textViewCell = tableView.dequeueReusableCellWithIdentifier(currentCellType) as! ProfileTextViewTableViewCell
             textViewCell.dynamicTVCLabel.text = dynamicLabelArray[indexPath.row]
             if textViewCell.dynamicTVCLabel.text == "Bio" {
                 textViewCell.dynamicTextView.text = userManager.currentUser?.userBio
+                userInputBio = textViewCell.dynamicTextView.text
             } else if textViewCell.dynamicTVCLabel.text == "Preferences" {
                 textViewCell.dynamicTextView.text = userManager.currentUser?.userPreferences
-            } else {
-            textViewCell.selectionStyle = UITableViewCellSelectionStyle.None
+                userInputPref = textViewCell.dynamicTextView.text
             }
+            textViewCell.dynamicTextView.delegate = self
+            textViewCell.selectionStyle = UITableViewCellSelectionStyle.None
             return textViewCell
         case "MapCell":
             var mapViewCell = tableView.dequeueReusableCellWithIdentifier(currentCellType) as! ProfileMapTableViewCell
@@ -222,6 +268,13 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBAction func saveDataToAPI(sender: UIBarButtonItem) {
         println("SDTA Start")
+        println("emailllll:\(userManager.currentUser!.userEmail)")
+        println("ppppppp\(userFirstName)")
+        println("oooooo\(userLastName)")
+        println("kkkkkk\(homeAddress)")
+        println("kkkkkk\(workAddress)")
+        println("jjjjjjj\(userInputPref)")
+        println("nnnnn\(userInputBio)")
 //        var date = NSDate()
 //        var dateFormatter :NSDateFormatter = NSDateFormatter()
 //        dateFormatter.dateFormat = "hh:mm a"
@@ -231,35 +284,31 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
         let url = NSURL(string: "http://sluggr-api.herokuapp.com/demo_user/edit_ios")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
-        let tempEmail = "a@b.com"
-        let tempMornTM = "4/2/22"
-        let temPEvenTM = "9:00am"
-        let tempHomeLocale = "7842 Royal Sydney Dr. Gainesville, VA 20155"
-        var tempWorkLocale = "Washington DC"
-        let tempBio = "This is my bio"
-        let tempPref = "I prefer fancy stuff"
-        let templastName = "guy"
-        
-//        let jsonString = "json=[{\"itinerary\":{\"morning_time\":\"\(tempMornTM)\"}}]"
-//        request.HTTPBody = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-//        request.HTTPMethod = "PUT"
-//        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        
-//        var postString = "{\"itinerary\": {\"home_locale\": \"\(tempHomeLocale)\", \"work_locale\": \"\(tempWorkLocale)\", \"morning_time\": \"\(tempMornTM)\", \"evening_time\": \"\(temPEvenTM)\", \"bio\": \"\(tempBio)\", \"preferences\": \"\(tempPref)\"}"
-//        var postData = postString.dataUsingEncoding(NSUTF8StringEncoding)!
-//        var postLength:NSString = String( postData.length )
-//        request.HTTPBody = postData
-//        request.setValue(postLength as String, forHTTPHeaderField: "Content-Length")
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        let tempEmail = "a@b.com"
+//        let tempMornTM = "4/2/22"
+//        let temPEvenTM = "9:00am"
+//        let tempHomeLocale = "7842 Royal Sydney Dr. Gainesville, VA 20155"
+//        var tempWorkLocale = "Washington DC"
+//        let tempBio = "This is my bio"
+//        let tempPref = "I prefer fancy stuff"
+//        let templastName = "guy"
 
-        request.setValue("\(tempEmail)", forHTTPHeaderField: "email")
-        request.setValue("\(tempMornTM)", forHTTPHeaderField: "morning_time")
-        request.setValue("\(temPEvenTM)", forHTTPHeaderField: "evening_time")
-        request.setValue("\(tempHomeLocale)", forHTTPHeaderField: "home_locale")
-        request.setValue("\(tempWorkLocale)", forHTTPHeaderField: "work_locale")
-        request.setValue("\(tempBio)", forHTTPHeaderField: "bio")
-        request.setValue("\(tempPref)", forHTTPHeaderField: "preferences")
-        request.setValue("basic \(templastName)", forHTTPHeaderField: "last_name")
+        
+        println("\(userManager.currentUser!.userEmail)")
+        println("\(userFirstName)")
+        println("\(userLastName)")
+        println("\(homeAddress)")
+        println("\(workAddress)")
+        println("\(userInputPref)")
+        println("\(userInputBio)")
+        
+        request.setValue("\(userManager.currentUser!.userEmail)", forHTTPHeaderField: "email")
+        request.setValue("\(homeAddress)", forHTTPHeaderField: "home_locale")
+        request.setValue("\(workAddress)", forHTTPHeaderField: "work_locale")
+        request.setValue("\(userInputBio)", forHTTPHeaderField: "bio")
+        request.setValue("\(userInputPref)", forHTTPHeaderField: "preferences")
+        request.setValue("\(userFirstName)", forHTTPHeaderField: "first_name")
+        request.setValue("\(userLastName)", forHTTPHeaderField: "last_name")
 
         
         //firing the request
@@ -284,6 +333,11 @@ class EditProfileViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         profileTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        println("**** THC Current User @ Profile *** \(userManager.currentUser)")
     }
 
     override func didReceiveMemoryWarning() {

@@ -83,15 +83,20 @@ class LoginViewController: UIViewController, UITableViewDelegate, UITableViewDat
     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{ (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
         println("error: \(error)")
         if error == nil {
+            var dataString = NSString(data: data, encoding:NSUTF8StringEncoding)
+            println("Data: \(dataString)")
             var err: NSError?
             var jsonResult: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as! NSDictionary
             var userDict = jsonResult.objectForKey("user") as! NSDictionary
             var userDict2 = jsonResult.objectForKey("itinerary") as! NSDictionary
             var currentUser = Users()
-            currentUser.userFirstName = userDict.objectForKey("first_name") as! String
+            if userDict.objectForKey("first_name") != nil {
+                currentUser.userFirstName = userDict.objectForKey("first_name") as! String
+            }
+            currentUser.userLastName = userDict.objectForKey("last_name") as! String
             currentUser.userEmail = userDict.objectForKey("email") as! String
             currentUser.userID = userDict.objectForKey("id") as? Int
-            currentUser.username = userDict.objectForKey("username") as! String
+            currentUser.username = userDict.objectForKey("username") as? String
             currentUser.userPreferences = userDict.objectForKey("preferences") as? String
             currentUser.userBio = userDict.objectForKey("bio") as? String
             //Using UserDict2 here because the api returns a dictionary with two seperate dictionaries of results.
@@ -106,8 +111,9 @@ class LoginViewController: UIViewController, UITableViewDelegate, UITableViewDat
         } else {
             self.userManager.currentUser = nil
         }
+        println("**** THC Current User @ Login *** \(self.userManager.currentUser)")
+        self.navigationController!.popToRootViewControllerAnimated(true)
     })
-    navigationController!.popToRootViewControllerAnimated(true)
 
     
     }

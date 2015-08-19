@@ -56,7 +56,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let usersDictArray = jsonResult.objectForKey("users") as! [NSDictionary]
             for userDict in usersDictArray {
                 let user = Users()
-                user.userFirstName = userDict.objectForKey("first_name") as? String
+                if !(userDict.objectForKey("first_name") is NSNull) {
+                    user.userFirstName = userDict.objectForKey("first_name") as! String
+                }
                 user.userLastName = userDict.objectForKey("last_name") as? String
                 user.userEmail = userDict.objectForKey("email") as! String
                 user.userBio = userDict.objectForKey("bio") as? String
@@ -442,7 +444,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if segmentedControl.selectedSegmentIndex == 0 {
             let cell :UserTableViewCell = tableView.dequeueReusableCellWithIdentifier("cell") as! UserTableViewCell
             let currentUser = userArray[indexPath.row]
+            if currentUser.userFirstName != nil {
             cell.nameLabel.text = currentUser.userFirstName
+            }
             cell.destinationLabel.text = currentUser.userWorkLocale
             //            if let userDist = currentUser.userDistance {
             //                cell.departureLabel.text = "\(userDist)"
@@ -492,10 +496,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         barButton2.tintColor = UIColor.darkGrayColor()
         let barButtonArray = [barButton1, barButton2]
         self.navigationItem.rightBarButtonItems = barButtonArray
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.blackColor()
-        barButton2.tintColor = UIColor.blackColor()
+//        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.blackColor()
+//        barButton2.tintColor = UIColor.blackColor()
         //        self.navigationItem.rightBarButtonItem.
         println("VWA END")
+        println("**** THC Current User *** \(userManager.currentUser)")
     }
     
     override func didReceiveMemoryWarning() {

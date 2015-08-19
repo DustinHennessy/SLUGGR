@@ -14,4 +14,9 @@ class CurrentUserManager: NSObject {
    
     var currentUser :Users?
     
+    private override init() {
+        super.init()
+        println("THC WAS HERE")
+    }
+
 }
